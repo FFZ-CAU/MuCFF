@@ -2,6 +2,8 @@
 
 MuCFF is the reference implementation of Multisource Complementary Feature Fusion for regulatory DNA prediction. It integrates cross-fitted evidence through score alignment, anchor-relative residual representation, and a joint sparse decision model.
 
+Repository: https://github.com/FFZ-CAU/MuCFF
+
 ## Installation
 
 Python 3.10 or later is required. The reported fusion experiments use the dependency versions listed in `requirements-lock.txt`.

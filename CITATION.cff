@@ -3,7 +3,9 @@ message: "If you use this software, please cite the associated article."
 title: "MuCFF: Multisource Complementary Feature Fusion"
 type: software
 version: 1.0.0
-date-released: 2026-08-13
+date-released: 2026-08-14
+url: "https://github.com/FFZ-CAU/MuCFF"
+repository-code: "https://github.com/FFZ-CAU/MuCFF"
 authors:
   - family-names: Gong
     given-names: Wentao
