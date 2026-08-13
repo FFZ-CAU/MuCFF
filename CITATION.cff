@@ -1,0 +1,33 @@
+cff-version: 1.2.0
+message: "If you use this software, please cite the associated article."
+title: "MuCFF: Multisource Complementary Feature Fusion"
+type: software
+version: 1.0.0
+date-released: 2026-08-13
+authors:
+  - family-names: Gong
+    given-names: Wentao
+  - family-names: Zhang
+    given-names: Jiaying
+  - family-names: Li
+    given-names: Jingrui
+    email: jrli@cau.edu.cn
+  - family-names: Pang
+    given-names: Huihui
+  - family-names: Zhang
+    given-names: Feifan
+    email: feifanzhang@cau.edu.cn
+preferred-citation:
+  type: article
+  title: "A multisource complementary feature fusion method for improving regulatory DNA prediction"
+  authors:
+    - family-names: Gong
+      given-names: Wentao
+    - family-names: Zhang
+      given-names: Jiaying
+    - family-names: Li
+      given-names: Jingrui
+    - family-names: Pang
+      given-names: Huihui
+    - family-names: Zhang
+      given-names: Feifan

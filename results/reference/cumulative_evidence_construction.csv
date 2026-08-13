@@ -1,0 +1,6 @@
+evidence_state,display_label,nominal_channels,mean_test_auc,incremental_gain,cumulative_gain
+Matched foundation/local bank,Foundation and local evidence,48/44,0.9343287339214448,,0.0
++ three RC motif-grammar experts,+ reverse-complement motif experts,51/47,0.941163,0.0068342660785553,0.0068342660785553
++ RC biophysical-grammar expert,+ biophysical grammar,52/48,0.941779,0.000616,0.0074502660785553
++ position-aware biophysical-grammar expert,+ positional biophysical grammar,53/49,0.9437223817700552,0.001943381770055,0.0093936478486104
++ anchor-relative residual route,+ anchor-relative residuals,53/49,0.944344210499445,0.0006218287293898,0.0100154765780003

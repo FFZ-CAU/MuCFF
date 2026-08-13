@@ -1,0 +1,5 @@
+resource_id,resource_name,stable_identifier,representation,upstream_license,citation_key,repository_contains
+M01,DNABERT-1,zhihan1996/DNA_bert_6,6-mer token mean and CLS embeddings,Apache-2.0,kim2021dnabert,derived source probabilities only
+M02,DNABERT-2,zhihan1996/DNABERT-2-117M,BPE token embeddings and pooling interactions,Apache-2.0,zhou2023dnabert2,derived source probabilities only
+M03,Nucleotide Transformer,InstaDeepAI/nucleotide-transformer-500m-human-ref,6-mer token mean and CLS embeddings,CC-BY-NC-SA-4.0,nucleotidetransformer2023,derived source probabilities only
+M04,DNAshapeR,bioconductor.org/packages/DNAshapeR,MGW HelT ProT Roll and EP tracks,GPL-2,dnashaper2016,derived source probabilities only

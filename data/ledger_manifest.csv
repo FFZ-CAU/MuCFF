@@ -1,0 +1,11 @@
+task_id,ledger,oof_samples,evaluation_samples,source_count
+gue_emp_H3,processed/gue_emp_H3/evidence_ledger.npz,13468,1497,53
+gue_human_tf_0,processed/gue_human_tf_0/evidence_ledger.npz,33378,1000,53
+gue_mouse_0,processed/gue_mouse_0/evidence_ledger.npz,7288,810,49
+gue_prom_300_all,processed/gue_prom_300_all/evidence_ledger.npz,53276,5920,53
+gue_prom_core_all,processed/gue_prom_core_all/evidence_ledger.npz,53276,5920,53
+ipromoter_hs_notata,processed/ipromoter_hs_notata/evidence_ledger.npz,44043,7774,53
+ipromoter_hs_tata,processed/ipromoter_hs_tata/evidence_ledger.npz,4967,878,53
+ipromoter_mm_notata,processed/ipromoter_mm_notata/evidence_ledger.npz,36423,6429,53
+ipromoter_mm_tata,processed/ipromoter_mm_tata/evidence_ledger.npz,5170,914,53
+snnrice6ma_rice_chen,processed/snnrice6ma_rice_chen/evidence_ledger.npz,1495,265,53
