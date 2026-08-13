@@ -34,6 +34,13 @@ mucff run --data data/processed --config configs/main_experiment.json --output o
 mucff verify --output outputs/rice_6ma --reference results/reference/reference_predictions.npz --tasks snnrice6ma_rice_chen
 ```
 
+The two auxiliary iEnhancer tasks use a separate 30-source evidence specification
+and are excluded from the primary aggregate. They are reproduced independently:
+
+```bash
+mucff run --data data/auxiliary --config configs/main_experiment.json --output outputs/auxiliary_enhancer
+```
+
 The command writes task-level predictions and metrics, an across-task method summary, and matched AUC comparisons. Reference tables used in the manuscript are provided in `results/reference`.
 
 Verify a complete run against the released reference predictions:
@@ -49,7 +56,10 @@ python -m pip install -r requirements-extended-lock.txt
 python -m pip install -e ".[benchmark,figures,sources]"
 mucff benchmark --data data/processed --config configs/main_experiment.json --output outputs/extended_baselines --device cuda
 mucff plot --reference results/reference --output outputs/figures
+mucff robustness --data data/processed --config configs/main_experiment.json --output outputs/robustness
 ```
+
+The robustness command reports source-group removal with refitting and fixed-model deployment tests for missing, conflicting, and noisy source scores.
 
 ## Repository contents
 

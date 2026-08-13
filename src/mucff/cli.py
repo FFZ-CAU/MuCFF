@@ -13,6 +13,7 @@ from .experiment import compare_methods, load_config, run_task, summarize, write
 from .ledger import discover_ledgers, load_ledger
 from .metrics import binary_metrics, select_mcc_threshold
 from .reporting import make_result_figures
+from .robustness import run_robustness, summarize_robustness
 from .verification import verify_predictions
 
 
@@ -43,6 +44,14 @@ def _parser() -> argparse.ArgumentParser:
     plot = subparsers.add_parser("plot", help="Generate quantitative result figures")
     plot.add_argument("--reference", type=Path, default=Path("results/reference"))
     plot.add_argument("--output", type=Path, default=Path("outputs/figures"))
+    robustness = subparsers.add_parser(
+        "robustness", help="Evaluate source ablation and deployment perturbations"
+    )
+    robustness.add_argument("--data", type=Path, default=Path("data/processed"))
+    robustness.add_argument("--config", type=Path, default=Path("configs/main_experiment.json"))
+    robustness.add_argument("--output", type=Path, default=Path("outputs/robustness"))
+    robustness.add_argument("--tasks", nargs="*", default=None)
+    robustness.add_argument("--repeats", type=int, default=20)
     return parser
 
 
@@ -61,6 +70,27 @@ def main() -> None:
     settings = json.loads(args.config.read_text(encoding="utf-8"))
     config = load_config(args.config)
     selected = set(args.tasks) if args.tasks else None
+    if args.command == "robustness":
+        rows = []
+        args.output.mkdir(parents=True, exist_ok=True)
+        for path in discover_ledgers(args.data):
+            ledger = load_ledger(path)
+            if selected is not None and ledger.task_id not in selected:
+                continue
+            result = run_robustness(ledger, config, settings, args.repeats)
+            task_output = args.output / ledger.task_id
+            task_output.mkdir(parents=True, exist_ok=True)
+            result.to_csv(task_output / "robustness_metrics.csv", index=False)
+            rows.append(result)
+            print(f"completed {ledger.task_id}", flush=True)
+        if not rows:
+            raise ValueError("No requested tasks were found.")
+        combined = pd.concat(rows, ignore_index=True)
+        combined.to_csv(args.output / "robustness_task_metrics.csv", index=False)
+        summarize_robustness(combined).to_csv(
+            args.output / "robustness_summary.csv", index=False
+        )
+        return
     if args.command == "benchmark":
         rows = []
         args.output.mkdir(parents=True, exist_ok=True)

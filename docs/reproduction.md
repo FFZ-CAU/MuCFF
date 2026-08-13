@@ -22,6 +22,13 @@ The complete command processes ten tasks and writes task-level metrics, OOF and 
 
 The expected MuCFF means are AUC 0.944344, AUPRC 0.945819, MCC 0.751495, and accuracy 0.874161. Prediction verification uses an absolute tolerance of `2e-7`.
 
+The auxiliary enhancer-recognition and enhancer-strength tasks use a separate
+30-source ledger and do not enter the primary ten-task aggregate:
+
+```bash
+mucff run --data data/auxiliary --config configs/main_experiment.json --output outputs/auxiliary_enhancer
+```
+
 ## Extended analyses
 
 ```bash
@@ -29,6 +36,9 @@ python -m pip install -r requirements-extended-lock.txt
 python -m pip install -e ".[benchmark,figures,sources]"
 mucff benchmark --data data/processed --config configs/main_experiment.json --output outputs/extended_baselines --device cpu
 mucff plot --reference results/reference --output outputs/figures
+mucff robustness --data data/processed --config configs/main_experiment.json --output outputs/robustness
 ```
+
+The robustness analysis uses the same four fusion folds and fixed MuCFF configuration. Source-group ablations refit the fusion model after removing a complete source group. Deployment-shift analyses retain clean training and replace unavailable evaluation scores by fold-training medians, reverse the task-level OOF-selected strongest source for a conflict test, or add deterministic Gaussian score noise. Missing-source rank coordinates use the empirical midpoint.
 
 The benchmark command adds XGBoost, LightGBM, histogram gradient boosting, multilayer perceptron, kernel approximation, Super Learner, and matched logistic controls. The plotting command writes PDF, SVG, and PNG figures from the released result tables.

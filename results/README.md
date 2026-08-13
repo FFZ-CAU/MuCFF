@@ -13,5 +13,8 @@
 | Taskwise mechanism decomposition | `reference/taskwise_mechanism_decomposition.csv` |
 | Source inventory and performance | `reference/source_performance_summary.csv` |
 | MuCFF versus sparse aligned control | `reference/reference_metric_summary.csv` |
+| Source availability and perturbations | `reference/robustness/robustness_task_metrics.csv` |
+| Robustness summary | `reference/robustness/robustness_summary.csv` |
+| Auxiliary iEnhancer results | `reference/auxiliary_enhancer_metrics.csv` |
 
 The `reference_predictions.npz` archive contains the task labels and the OOF and evaluation probabilities for MuCFF and the sparse aligned control.

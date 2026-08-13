@@ -40,7 +40,7 @@ def stable_seed(base: int, *parts: object) -> int:
     return base + int(hashlib.sha256(token).hexdigest()[:8], 16) % 1_000_000
 
 
-def _elastic_net(config: MuCFFConfig):
+def make_sparse_decision(config: MuCFFConfig):
     return make_pipeline(
         StandardScaler(),
         LogisticRegression(
@@ -54,7 +54,7 @@ def _elastic_net(config: MuCFFConfig):
     )
 
 
-def _predict(model, features: np.ndarray, epsilon: float) -> np.ndarray:
+def predict_probability(model, features: np.ndarray, epsilon: float) -> np.ndarray:
     with warnings.catch_warnings():
         warnings.simplefilter("ignore")
         values = model.predict_proba(features)[:, 1]
@@ -97,14 +97,14 @@ def _crossfit(
             validation_state = aligned_state(oof_scores[validation_index], config.probability_epsilon)
             eval_state = aligned_state(eval_scores, config.probability_epsilon)
 
-        model = clone(_elastic_net(config))
+        model = clone(make_sparse_decision(config))
         with warnings.catch_warnings():
             warnings.simplefilter("ignore")
             model.fit(train_state, labels[train_index])
-        oof_probability[validation_index] = _predict(
+        oof_probability[validation_index] = predict_probability(
             model, validation_state, config.probability_epsilon
         )
-        eval_probabilities.append(_predict(model, eval_state, config.probability_epsilon))
+        eval_probabilities.append(predict_probability(model, eval_state, config.probability_epsilon))
         anchors.append(anchor_index)
         if include_residual:
             coefficients = model.named_steps["logisticregression"].coef_[0]
@@ -155,14 +155,14 @@ def crossfit_aligned_control(
     oof_probability = np.zeros(labels.size, dtype=np.float32)
     eval_probabilities: list[np.ndarray] = []
     for train_index, validation_index in splitter.split(oof_state, labels):
-        model = clone(_elastic_net(settings))
+        model = clone(make_sparse_decision(settings))
         with warnings.catch_warnings():
             warnings.simplefilter("ignore")
             model.fit(oof_state[train_index], labels[train_index])
-        oof_probability[validation_index] = _predict(
+        oof_probability[validation_index] = predict_probability(
             model, oof_state[validation_index], settings.probability_epsilon
         )
-        eval_probabilities.append(_predict(model, eval_state, settings.probability_epsilon))
+        eval_probabilities.append(predict_probability(model, eval_state, settings.probability_epsilon))
     return FusionPredictions(
         oof_probability=clip_prob(oof_probability, settings.probability_epsilon).astype(np.float32),
         eval_probability=clip_prob(

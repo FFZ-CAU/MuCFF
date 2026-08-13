@@ -12,7 +12,7 @@ Each task directory contains one compressed NumPy archive named `evidence_ledger
 | `source_ids` | `(n_sources,)` | Source identifiers linked to `source_metadata.csv` |
 | `source_families` | `(n_sources,)` | Evidence-family labels |
 
-`dataset_manifest.csv` records task definitions, partition protocols, class counts, and source counts. `ledger_manifest.csv` provides the machine-readable ledger index.
+`dataset_manifest.csv` records primary task definitions, partition protocols, class counts, and source counts. `ledger_manifest.csv` provides the machine-readable primary ledger index. The `auxiliary/` directory contains the separately evaluated 30-source enhancer-recognition and enhancer-strength ledgers; `auxiliary_ledger_manifest.csv` indexes them. They are excluded from the primary ten-task aggregate.
 
 `dataset_sources.csv` lists the upstream benchmark resources. `model_manifest.csv` lists the foundation models and DNA-shape software represented in the ledgers. The repository contains labels and derived source probabilities; it does not redistribute pretrained weights or raw benchmark sequences.
 
