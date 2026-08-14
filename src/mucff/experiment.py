@@ -25,6 +25,7 @@ def load_config(path: str | Path) -> MuCFFConfig:
         l1_ratio=float(values["l1_ratio"]),
         max_iterations=int(values["max_iterations"]),
         probability_epsilon=float(values["probability_epsilon"]),
+        routing_temperature=float(values.get("routing_temperature", 0.20)),
     )
 
 
@@ -59,7 +60,12 @@ def run_task(
         ledger.oof_scores, ledger.y_oof, ledger.eval_scores, ledger.task_id, config
     )
     proposed = crossfit_mucff(
-        ledger.oof_scores, ledger.y_oof, ledger.eval_scores, ledger.task_id, config
+        ledger.oof_scores,
+        ledger.y_oof,
+        ledger.eval_scores,
+        ledger.task_id,
+        ledger.source_families,
+        config,
     )
     predictions["sparse_aligned_control"] = BaselinePrediction(
         aligned.oof_probability, aligned.eval_probability

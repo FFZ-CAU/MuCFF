@@ -1,6 +1,6 @@
 # MuCFF
 
-MuCFF is the reference implementation of Multisource Complementary Feature Fusion for regulatory DNA prediction. It integrates cross-fitted evidence through score alignment, anchor-relative residual representation, and a joint sparse decision model.
+MuCFF is the reference implementation of Multisource Complementary Feature Fusion for regulatory DNA prediction. It integrates cross-fitted evidence through score alignment, reliability-guided residual routing, and a joint sparse decision model.
 
 Repository: https://github.com/FFZ-CAU/MuCFF
 

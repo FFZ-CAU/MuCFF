@@ -6,8 +6,8 @@
   "l1_ratio": 0.5,
   "max_iterations": 2200,
   "probability_epsilon": 1e-5,
+  "routing_temperature": 0.20,
   "threshold_quantile_low": 0.02,
   "threshold_quantile_high": 0.98,
   "threshold_quantile_count": 193
 }
-

@@ -240,6 +240,7 @@ def run_extended_baselines(ledger, config: MuCFFConfig, device: str = "cpu") -> 
         ledger.y_oof,
         ledger.eval_scores,
         ledger.task_id,
+        ledger.source_families,
         config,
     )
     predictions = {

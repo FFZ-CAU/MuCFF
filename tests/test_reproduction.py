@@ -22,11 +22,11 @@ def test_rice_6ma_reference_metrics():
     metrics, _ = run_task(ledger, config, threshold_settings)
     indexed = metrics.set_index("method")
     expected = {
-        "mucff": (0.8855092276144907, 0.8968640306097969, 0.5259930237408523),
+        "mucff": (0.8846548188653452, 0.8927166645567698, 0.5398991206424848),
         "sparse_aligned_control": (
-            0.8846548188653451,
-            0.8927046622937502,
-            0.565595997085564,
+            0.8845408976987924,
+            0.89261125287288,
+            0.5398991206424848,
         ),
     }
     for method, values in expected.items():

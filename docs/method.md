@@ -8,10 +8,10 @@ Each source probability is represented by its clipped probability, percentile ra
 
 ## Anchor-relative evidence
 
-Within each outer training fold, the source with the largest orientation-insensitive OOF AUC is selected as the anchor. For every source, MuCFF forms four anchor-relative quantities: probability difference, rank difference, clipped logit difference, and absolute probability difference. The residual state has `4M` dimensions.
+Within each outer training fold, the source with the largest orientation-insensitive OOF AUC is selected as the anchor. Source skill, rank-based nonredundancy, and rescue-versus-harm behavior define a fold-local routing prior. For each sample, family agreement, source confidence, anchor uncertainty, and source-anchor conflict modulate this prior. The resulting 12-dimensional routed state summarizes signed probability, rank, and logit innovations, disagreement magnitude, directional support, and uncertainty interactions.
 
 ## Joint sparse decision
 
-The aligned and residual states are concatenated into a `7M + 5` dimensional vector. Standardization and an elastic-net logistic model are fitted only on the outer-fold training subset. Held-out OOF probabilities determine the classification threshold; evaluation labels are used only for metric calculation.
+The aligned and routed states are concatenated into a `3M + 17` dimensional vector. Routing-state estimation, standardization, and an elastic-net logistic model are fitted only on the outer-fold training subset. Held-out OOF probabilities determine the classification threshold; evaluation labels are used only for metric calculation.
 
 The reported configuration uses four outer folds, `C = 0.03`, an L1 ratio of `0.5`, class balancing, and 2,200 SAGA iterations.

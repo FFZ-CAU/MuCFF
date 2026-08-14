@@ -2,8 +2,8 @@ import numpy as np
 
 from mucff.fusion import MuCFFConfig
 from mucff.ledger import EvidenceLedger
-from mucff.representation import clip_prob, logit, mucff_state, rank_columns
-from mucff.robustness import _state_from_components, build_stress_conditions
+from mucff.representation import fit_routing_state, mucff_state
+from mucff.robustness import build_stress_conditions
 
 
 def test_stress_conditions_include_source_groups_and_random_missingness():
@@ -31,11 +31,12 @@ def test_stress_conditions_include_source_groups_and_random_missingness():
     assert names.count("score_noise_sd_0.05") == 2
 
 
-def test_cached_state_matches_reference_representation():
+def test_routed_state_is_finite_under_family_grouping():
     rng = np.random.default_rng(11)
     scores = rng.uniform(0.05, 0.95, size=(31, 6))
-    probabilities = clip_prob(scores)
-    cached = _state_from_components(
-        probabilities, rank_columns(probabilities), logit(probabilities), anchor_index=2
-    )
-    np.testing.assert_allclose(cached, mucff_state(scores, anchor_index=2), atol=0.0)
+    labels = np.tile([0, 1], 16)[:31]
+    families = ("a", "a", "b", "b", "c", "c")
+    routing = fit_routing_state(scores, labels, families)
+    state = mucff_state(scores, routing)
+    assert state.shape == (31, 3 * 6 + 5 + 12)
+    assert np.isfinite(state).all()

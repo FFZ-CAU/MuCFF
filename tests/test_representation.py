@@ -1,6 +1,13 @@
 import numpy as np
 
-from mucff.representation import aligned_state, mucff_state, residual_state, select_anchor
+from mucff.representation import (
+    aligned_state,
+    compact_residual_state,
+    fit_routing_state,
+    mucff_state,
+    residual_state,
+    select_anchor,
+)
 
 
 def test_state_dimensions_and_anchor_selection():
@@ -15,10 +22,12 @@ def test_state_dimensions_and_anchor_selection():
     )
     labels = np.asarray([0, 0, 1, 1])
     anchor = select_anchor(scores, labels)
+    routing = fit_routing_state(scores, labels, ("a", "b", "c"))
     assert anchor == 0
     assert aligned_state(scores).shape == (4, 14)
     assert residual_state(scores, anchor).shape == (4, 12)
-    assert mucff_state(scores, anchor).shape == (4, 26)
+    assert compact_residual_state(scores, routing).shape == (4, 12)
+    assert mucff_state(scores, routing).shape == (4, 26)
 
 
 def test_anchor_residual_is_zero():

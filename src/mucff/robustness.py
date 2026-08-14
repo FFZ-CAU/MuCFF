@@ -19,7 +19,7 @@ from .fusion import (
 )
 from .ledger import EvidenceLedger
 from .metrics import binary_metrics, select_mcc_threshold
-from .representation import clip_prob, logit, mucff_state, rank_columns, select_anchor
+from .representation import clip_prob, fit_routing_state, mucff_state, select_anchor
 
 
 SOURCE_GROUPS: dict[str, frozenset[str]] = {
@@ -143,75 +143,27 @@ def _alter_scores(
     return np.clip(altered, epsilon, 1.0 - epsilon)
 
 
-def _state_from_components(
-    probabilities: np.ndarray,
-    ranks: np.ndarray,
-    logits: np.ndarray,
-    anchor_index: int,
-) -> np.ndarray:
-    summaries = np.column_stack(
-        [
-            probabilities.mean(axis=1),
-            probabilities.std(axis=1),
-            probabilities.min(axis=1),
-            probabilities.max(axis=1),
-            np.ptp(probabilities, axis=1),
-        ]
-    )
-    anchor_probability = probabilities[:, anchor_index : anchor_index + 1]
-    anchor_rank = ranks[:, anchor_index : anchor_index + 1]
-    anchor_logit = logits[:, anchor_index : anchor_index + 1]
-    residual = np.hstack(
-        [
-            probabilities - anchor_probability,
-            ranks - anchor_rank,
-            np.clip(logits - anchor_logit, -8.0, 8.0),
-            np.abs(probabilities - anchor_probability),
-        ]
-    )
-    return np.hstack([probabilities, ranks, logits, summaries, residual]).astype(np.float32)
-
-
 def _condition_state(
     scores: np.ndarray,
     condition: StressCondition,
     neutral_values: np.ndarray,
-    anchor_index: int,
+    routing,
     seed: int,
-    epsilon: float,
-    base_components: tuple[np.ndarray, np.ndarray, np.ndarray],
+    config: MuCFFConfig,
 ) -> np.ndarray:
-    base_probabilities, base_ranks, base_logits = base_components
-    if condition.kind == "clean":
-        return _state_from_components(
-            base_probabilities, base_ranks, base_logits, anchor_index
-        )
-    if condition.kind == "noise":
-        probabilities = _alter_scores(
-            scores, condition, neutral_values, seed, epsilon
-        )
-        return _state_from_components(
-            probabilities,
-            rank_columns(probabilities),
-            logit(probabilities, epsilon),
-            anchor_index,
-        )
-
-    probabilities = base_probabilities.copy()
-    ranks = base_ranks.copy()
-    logits = base_logits.copy()
-    indices = list(condition.source_indices)
-    if condition.kind == "missing":
-        probabilities[:, indices] = neutral_values[indices]
-        ranks[:, indices] = (scores.shape[0] + 1.0) / (2.0 * scores.shape[0])
-        logits[:, indices] = logit(neutral_values[indices], epsilon)
-    elif condition.kind == "conflict":
-        probabilities[:, indices] = 1.0 - probabilities[:, indices]
-        ranks[:, indices] = (scores.shape[0] + 1.0) / scores.shape[0] - ranks[:, indices]
-        logits[:, indices] = -logits[:, indices]
-    else:
-        raise ValueError(f"Unknown stress condition: {condition.kind}")
-    return _state_from_components(probabilities, ranks, logits, anchor_index)
+    probabilities = _alter_scores(
+        scores,
+        condition,
+        neutral_values,
+        seed,
+        config.probability_epsilon,
+    )
+    return mucff_state(
+        probabilities,
+        routing,
+        config.routing_temperature,
+        config.probability_epsilon,
+    )
 
 
 def _predict_stress_conditions(
@@ -228,26 +180,26 @@ def _predict_stress_conditions(
     )
     oof_probability = np.zeros(ledger.y_oof.size, dtype=np.float32)
     fold_predictions = {condition: [] for condition in conditions}
-    eval_probabilities = clip_prob(ledger.eval_scores, config.probability_epsilon)
-    eval_components = (
-        eval_probabilities,
-        rank_columns(eval_probabilities),
-        logit(eval_probabilities, config.probability_epsilon),
-    )
-
     for fold_index, (train_index, validation_index) in enumerate(
         splitter.split(ledger.oof_scores, ledger.y_oof)
     ):
-        anchor_index = select_anchor(
+        routing = fit_routing_state(
             ledger.oof_scores[train_index],
             ledger.y_oof[train_index],
+            ledger.source_families,
             config.probability_epsilon,
         )
         train_state = mucff_state(
-            ledger.oof_scores[train_index], anchor_index, config.probability_epsilon
+            ledger.oof_scores[train_index],
+            routing,
+            config.routing_temperature,
+            config.probability_epsilon,
         )
         validation_state = mucff_state(
-            ledger.oof_scores[validation_index], anchor_index, config.probability_epsilon
+            ledger.oof_scores[validation_index],
+            routing,
+            config.routing_temperature,
+            config.probability_epsilon,
         )
         model = clone(make_sparse_decision(config))
         with warnings.catch_warnings():
@@ -263,7 +215,7 @@ def _predict_stress_conditions(
                 ledger.eval_scores,
                 condition,
                 neutral_values,
-                anchor_index,
+                routing,
                 stable_seed(
                     config.seed_base,
                     ledger.task_id,
@@ -271,8 +223,7 @@ def _predict_stress_conditions(
                     condition.replicate,
                     fold_index,
                 ),
-                config.probability_epsilon,
-                eval_components,
+                config,
             )
             fold_predictions[condition].append(
                 predict_probability(model, state, config.probability_epsilon)
@@ -354,6 +305,7 @@ def run_robustness(
             ledger.y_oof,
             ledger.eval_scores[:, retained],
             ledger.task_id,
+            tuple(np.asarray(ledger.source_families)[retained]),
             config,
         )
         removed_threshold = select_mcc_threshold(

@@ -16,11 +16,12 @@ mucff verify --output outputs/rice_6ma --reference results/reference/reference_p
 ```bash
 mucff run --data data/processed --config configs/main_experiment.json --output outputs/main_experiment
 mucff verify --output outputs/main_experiment --reference results/reference/reference_predictions.npz
+python scripts/export_reference_results.py --run outputs/main_experiment --output outputs/reproduced_reference
 ```
 
-The complete command processes ten tasks and writes task-level metrics, OOF and evaluation predictions, across-task summaries, and paired AUC comparisons. A reference CPU run with two numerical-library threads required approximately 18 minutes and less than 1 GB of working memory; installation and the 52 MB processed ledger collection require additional disk space.
+The complete command processes ten tasks and writes task-level metrics, OOF and evaluation predictions, across-task summaries, and paired AUC comparisons. A reference CPU run with two numerical-library threads required approximately 13 minutes and less than 1 GB of working memory; installation and the 52 MB processed ledger collection require additional disk space.
 
-The expected MuCFF means are AUC 0.944344, AUPRC 0.945819, MCC 0.751495, and accuracy 0.874161. Prediction verification uses an absolute tolerance of `2e-7`.
+The expected MuCFF means are AUC 0.943950, AUPRC 0.945048, MCC 0.750372, and accuracy 0.873485. The matched sparse aligned-state control has mean AUC 0.943705. Prediction verification uses an absolute tolerance of `2e-7`.
 
 The auxiliary enhancer-recognition and enhancer-strength tasks use a separate
 30-source ledger and do not enter the primary ten-task aggregate:

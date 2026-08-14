@@ -260,13 +260,7 @@ def crossfit_logistic_control(
     config: MuCFFConfig | None = None,
 ) -> BaselinePrediction:
     settings = config or MuCFFConfig()
-    if representation == "raw":
-        oof_state = clip_prob(oof_scores).astype(np.float32)
-        eval_state = clip_prob(eval_scores).astype(np.float32)
-    elif representation == "aligned":
-        oof_state = aligned_state(oof_scores, settings.probability_epsilon)
-        eval_state = aligned_state(eval_scores, settings.probability_epsilon)
-    else:
+    if representation not in {"raw", "aligned"}:
         raise ValueError(f"Unknown representation: {representation}")
     estimator = make_pipeline(
         StandardScaler(),
@@ -284,12 +278,24 @@ def crossfit_logistic_control(
     )
     oof_probability = np.zeros(labels.size, dtype=np.float32)
     eval_probabilities = []
-    for train_index, validation_index in splitter.split(oof_state, labels):
+    for train_index, validation_index in splitter.split(oof_scores, labels):
+        if representation == "raw":
+            train_state = clip_prob(oof_scores[train_index]).astype(np.float32)
+            validation_state = clip_prob(oof_scores[validation_index]).astype(np.float32)
+            eval_state = clip_prob(eval_scores).astype(np.float32)
+        else:
+            train_state = aligned_state(
+                oof_scores[train_index], settings.probability_epsilon
+            )
+            validation_state = aligned_state(
+                oof_scores[validation_index], settings.probability_epsilon
+            )
+            eval_state = aligned_state(eval_scores, settings.probability_epsilon)
         model = clone(estimator)
         with warnings.catch_warnings():
             warnings.simplefilter("ignore")
-            model.fit(oof_state[train_index], labels[train_index])
-        oof_probability[validation_index] = model.predict_proba(oof_state[validation_index])[:, 1]
+            model.fit(train_state, labels[train_index])
+        oof_probability[validation_index] = model.predict_proba(validation_state)[:, 1]
         eval_probabilities.append(model.predict_proba(eval_state)[:, 1])
     return BaselinePrediction(
         clip_prob(oof_probability).astype(np.float32),

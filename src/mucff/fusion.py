@@ -13,7 +13,7 @@ from sklearn.model_selection import StratifiedKFold
 from sklearn.pipeline import make_pipeline
 from sklearn.preprocessing import StandardScaler
 
-from .representation import aligned_state, clip_prob, mucff_state, select_anchor
+from .representation import aligned_state, clip_prob, fit_routing_state, mucff_state
 
 
 @dataclass(frozen=True)
@@ -25,6 +25,7 @@ class MuCFFConfig:
     l1_ratio: float = 0.5
     max_iterations: int = 2200
     probability_epsilon: float = 1e-5
+    routing_temperature: float = 0.20
 
 
 @dataclass(frozen=True)
@@ -68,6 +69,7 @@ def _crossfit(
     task_id: str,
     config: MuCFFConfig,
     include_residual: bool,
+    source_families: tuple[str, ...] = (),
 ) -> FusionPredictions:
     splitter = StratifiedKFold(
         config.outer_folds,
@@ -81,17 +83,31 @@ def _crossfit(
     aligned_dimension = 3 * oof_scores.shape[1] + 5
 
     for train_index, validation_index in splitter.split(oof_scores, labels):
-        anchor_index = select_anchor(
-            oof_scores[train_index], labels[train_index], config.probability_epsilon
-        )
         if include_residual:
+            routing = fit_routing_state(
+                oof_scores[train_index],
+                labels[train_index],
+                source_families,
+                config.probability_epsilon,
+            )
             train_state = mucff_state(
-                oof_scores[train_index], anchor_index, config.probability_epsilon
+                oof_scores[train_index],
+                routing,
+                config.routing_temperature,
+                config.probability_epsilon,
             )
             validation_state = mucff_state(
-                oof_scores[validation_index], anchor_index, config.probability_epsilon
+                oof_scores[validation_index],
+                routing,
+                config.routing_temperature,
+                config.probability_epsilon,
             )
-            eval_state = mucff_state(eval_scores, anchor_index, config.probability_epsilon)
+            eval_state = mucff_state(
+                eval_scores,
+                routing,
+                config.routing_temperature,
+                config.probability_epsilon,
+            )
         else:
             train_state = aligned_state(oof_scores[train_index], config.probability_epsilon)
             validation_state = aligned_state(oof_scores[validation_index], config.probability_epsilon)
@@ -105,7 +121,8 @@ def _crossfit(
             model, validation_state, config.probability_epsilon
         )
         eval_probabilities.append(predict_probability(model, eval_state, config.probability_epsilon))
-        anchors.append(anchor_index)
+        if include_residual:
+            anchors.append(routing.anchor_index)
         if include_residual:
             coefficients = model.named_steps["logisticregression"].coef_[0]
             nonzero.append(float(np.mean(np.abs(coefficients[aligned_dimension:]) > 1e-9)))
@@ -125,6 +142,7 @@ def crossfit_mucff(
     labels: np.ndarray,
     eval_scores: np.ndarray,
     task_id: str,
+    source_families: tuple[str, ...],
     config: MuCFFConfig | None = None,
 ) -> FusionPredictions:
     return _crossfit(
@@ -134,6 +152,7 @@ def crossfit_mucff(
         task_id,
         config or MuCFFConfig(),
         include_residual=True,
+        source_families=source_families,
     )
 
 
@@ -144,30 +163,11 @@ def crossfit_aligned_control(
     task_id: str,
     config: MuCFFConfig | None = None,
 ) -> FusionPredictions:
-    settings = config or MuCFFConfig()
-    oof_state = aligned_state(oof_scores, settings.probability_epsilon)
-    eval_state = aligned_state(eval_scores, settings.probability_epsilon)
-    splitter = StratifiedKFold(
-        settings.outer_folds,
-        shuffle=True,
-        random_state=stable_seed(settings.seed_base, task_id, "fusion_benchmark_common_cv"),
-    )
-    oof_probability = np.zeros(labels.size, dtype=np.float32)
-    eval_probabilities: list[np.ndarray] = []
-    for train_index, validation_index in splitter.split(oof_state, labels):
-        model = clone(make_sparse_decision(settings))
-        with warnings.catch_warnings():
-            warnings.simplefilter("ignore")
-            model.fit(oof_state[train_index], labels[train_index])
-        oof_probability[validation_index] = predict_probability(
-            model, oof_state[validation_index], settings.probability_epsilon
-        )
-        eval_probabilities.append(predict_probability(model, eval_state, settings.probability_epsilon))
-    return FusionPredictions(
-        oof_probability=clip_prob(oof_probability, settings.probability_epsilon).astype(np.float32),
-        eval_probability=clip_prob(
-            np.mean(eval_probabilities, axis=0), settings.probability_epsilon
-        ).astype(np.float32),
-        anchor_indices=(),
-        residual_nonzero_fraction=0.0,
+    return _crossfit(
+        oof_scores,
+        labels,
+        eval_scores,
+        task_id,
+        config or MuCFFConfig(),
+        include_residual=False,
     )
