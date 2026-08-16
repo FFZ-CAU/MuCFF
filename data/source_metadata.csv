@@ -34,23 +34,23 @@ E02,Standalone sequence expert,RC motif and biophysical grammar,Neural expert,RC
 E03,Standalone sequence expert,"RC multiscale motif grammar, initialization 3",Neural expert,RC motif grammar
 E04,Standalone sequence expert,"RC multiscale motif grammar, initialization 2",Neural expert,RC motif grammar
 E05,Standalone sequence expert,"RC multiscale motif grammar, initialization 1",Neural expert,RC motif grammar
-D01,Derived evidence channel,Cross-fitted meta-evidence,Composite predictor,Cross-fitted meta-evidence
-D02,Derived evidence channel,Integrated score-residual evidence,Integrated residual predictor,Score-residual evidence
-D03,Derived evidence channel,Local three-foundation branch,Composite predictor,Pre-classifier local fusion
-D04,Derived evidence channel,Mean three-foundation interaction branch,Composite predictor,Pre-classifier local fusion
-D05,Derived evidence channel,Feature-complementarity view token,View-token expert,Deep feature interaction
-D06,Derived evidence channel,Local DNABERT-2 and DNABERT-1 branch,Composite predictor,Pre-classifier local fusion
-D07,Derived evidence channel,Local DNABERT-2 and Nucleotide Transformer branch,Composite predictor,Pre-classifier local fusion
+D01,Derived evidence channel,Cross-fitted dual meta-evidence channel,Composite predictor,Meta-evidence
+D02,Derived evidence channel,Integrated score-residual evidence channel,Integrated residual predictor,Score-residual evidence
+D03,Derived evidence channel,Local three-foundation interaction branch,Composite predictor,Pre-classifier local fusion
+D04,Derived evidence channel,Mean-pooled three-foundation interaction branch,Composite predictor,Pre-classifier local fusion
+D05,Derived evidence channel,Feature-complementarity view-token channel,View-token expert,Deep feature interaction
+D06,Derived evidence channel,Local DNABERT-2 and DNABERT-1 interaction branch,Composite predictor,Pre-classifier local fusion
+D07,Derived evidence channel,Local DNABERT-2 and Nucleotide Transformer interaction branch,Composite predictor,Pre-classifier local fusion
 D08,Derived evidence channel,Local DNABERT-2 cross-feature branch,Composite predictor,Pre-classifier local fusion
-D09,Derived evidence channel,"Cross-foundation attention branch, initialization 1",Cross-attention interaction head,Cross-foundation interaction
-D10,Derived evidence channel,"Cross-foundation attention branch, initialization 2",Cross-attention interaction head,Cross-foundation interaction
-D11,Derived evidence channel,"Cross-foundation attention branch, initialization 3",Cross-attention interaction head,Cross-foundation interaction
-D12,Derived evidence channel,"DNABERT-1 pooling-interaction branch, initialization 3",Pooling-interaction neural head,DNABERT-1
-D13,Derived evidence channel,"DNABERT-1 pooling-interaction branch, initialization 2",Pooling-interaction neural head,DNABERT-1
-D14,Derived evidence channel,"DNABERT-1 pooling-interaction branch, initialization 1",Pooling-interaction neural head,DNABERT-1
-D15,Derived evidence channel,"DNABERT-2 pooling-interaction branch, initialization 2",Pooling-interaction neural head,DNABERT-2
-D16,Derived evidence channel,"DNABERT-2 pooling-interaction branch, initialization 3",Pooling-interaction neural head,DNABERT-2
-D17,Derived evidence channel,"DNABERT-2 pooling-interaction branch, initialization 1",Pooling-interaction neural head,DNABERT-2
-D18,Derived evidence channel,"Nucleotide Transformer pooling-interaction branch, initialization 1",Pooling-interaction neural head,Nucleotide Transformer
-D19,Derived evidence channel,"Nucleotide Transformer pooling-interaction branch, initialization 2",Pooling-interaction neural head,Nucleotide Transformer
-D20,Derived evidence channel,"Nucleotide Transformer pooling-interaction branch, initialization 3",Pooling-interaction neural head,Nucleotide Transformer
+D09,Derived evidence channel,Cross-foundation attention interaction A,Cross-attention interaction head,Cross-foundation interaction
+D10,Derived evidence channel,Cross-foundation attention interaction B,Cross-attention interaction head,Cross-foundation interaction
+D11,Derived evidence channel,Cross-foundation attention interaction C,Cross-attention interaction head,Cross-foundation interaction
+D12,Derived evidence channel,DNABERT-1 pooling interaction A,Pooling-interaction neural head,DNABERT-1
+D13,Derived evidence channel,DNABERT-1 pooling interaction B,Pooling-interaction neural head,DNABERT-1
+D14,Derived evidence channel,DNABERT-1 pooling interaction C,Pooling-interaction neural head,DNABERT-1
+D15,Derived evidence channel,DNABERT-2 pooling interaction A,Pooling-interaction neural head,DNABERT-2
+D16,Derived evidence channel,DNABERT-2 pooling interaction B,Pooling-interaction neural head,DNABERT-2
+D17,Derived evidence channel,DNABERT-2 pooling interaction C,Pooling-interaction neural head,DNABERT-2
+D18,Derived evidence channel,Nucleotide Transformer pooling interaction A,Pooling-interaction neural head,Nucleotide Transformer
+D19,Derived evidence channel,Nucleotide Transformer pooling interaction B,Pooling-interaction neural head,Nucleotide Transformer
+D20,Derived evidence channel,Nucleotide Transformer pooling interaction C,Pooling-interaction neural head,Nucleotide Transformer

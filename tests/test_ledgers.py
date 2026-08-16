@@ -18,3 +18,15 @@ def test_manifest_and_ledgers_are_consistent():
         assert ledger.y_oof.size == row.oof_samples
         assert ledger.y_eval.size == row.evaluation_samples
         assert ledger.n_sources == row.source_count
+
+
+def test_auxiliary_ledgers_use_stable_source_metadata():
+    metadata = pd.read_csv(ROOT / "data" / "auxiliary_source_metadata.csv")
+    expected_ids = metadata["source_id"].tolist()
+    expected_families = metadata["source_family"].tolist()
+    paths = discover_ledgers(ROOT / "data" / "auxiliary")
+    assert len(paths) == 2
+    for path in paths:
+        ledger = load_ledger(path)
+        assert list(ledger.source_ids) == expected_ids
+        assert list(ledger.source_families) == expected_families

@@ -1,56 +1,56 @@
 source_id,source_tier,evidence,prediction_head,source_family,n_tasks,mean_oof_auc,mean_evaluation_auc,mean_auprc,mean_mcc,mean_accuracy
-D01,Derived evidence channel,Stable dual OOF meta-predictor,Composite predictor,Stable meta source,10,0.9239101776745932,0.9307216166751194,0.9308673005623832,0.7168688655885681,0.857009696206053
-D02,Derived evidence channel,Integrated score-residual expert,Integrated residual predictor,Score-residual expert,10,0.9102229232775386,0.9159870151854768,0.914805569641642,0.6890737445362787,0.8432925662378103
-D03,Derived evidence channel,Local three-foundation branch,Composite predictor,Pre-classifier local fusion,10,0.8730742876810019,0.8954554449438034,0.8937213516407274,0.6356806868761282,0.8109430115575057
-D04,Derived evidence channel,Mean three-foundation interaction branch,Composite predictor,Pre-classifier local fusion,10,0.8730053047747779,0.8927489057828384,0.8904968353160081,0.6295610213536837,0.8070777214746923
-D05,Derived evidence channel,Feature-complementarity view token,View-token expert,Deep feature expert,10,0.8681368112304353,0.8977824250980643,0.8965761443963677,0.623795116998574,0.8033212146450655
-D06,Derived evidence channel,Local DNABERT-2/DNABERT-1 branch,Composite predictor,Pre-classifier local fusion,10,0.8652576415782491,0.8908787136839965,0.889888475218024,0.6153086682954314,0.8008756698900482
-D07,Derived evidence channel,Local DNABERT-2/NT branch,Composite predictor,Pre-classifier local fusion,10,0.8497676206928549,0.8741937816655531,0.8702474236557768,0.585672825145626,0.7868434111523214
-D08,Derived evidence channel,Local DNABERT-2 cross-feature branch,Composite predictor,Pre-classifier local fusion,10,0.8414797156431504,0.8684569842484864,0.8676195406607242,0.5588289870289644,0.7693091692908638
-D09,Derived evidence channel,cross foundation / attention interaction / seed0,Cross-attention interaction head,Cross-foundation interaction,10,0.8376930997652176,0.873224760159186,0.8648214579176496,0.5822905273989869,0.7835424342312354
-D10,Derived evidence channel,cross foundation / attention interaction / seed1,Cross-attention interaction head,Cross-foundation interaction,10,0.8369923371603527,0.868540770757436,0.8607094584859556,0.5815338319026815,0.7834705921746413
-D11,Derived evidence channel,cross foundation / attention interaction / seed2,Cross-attention interaction head,Cross-foundation interaction,10,0.8362575637418418,0.8712185893788591,0.8648241910276788,0.5911118967376152,0.7901406913477602
-D12,Derived evidence channel,dnabert1 6mer / pool interaction / seed2,Pooling-interaction neural head,DNABERT-1,10,0.816837087851707,0.8490517544656713,0.8424272731565449,0.5432971321426063,0.7667355503980916
-D13,Derived evidence channel,dnabert1 6mer / pool interaction / seed1,Pooling-interaction neural head,DNABERT-1,10,0.8165740407663327,0.8472238279439782,0.8413679583267507,0.5347700504366258,0.7610532464973159
-D14,Derived evidence channel,dnabert1 6mer / pool interaction / seed0,Pooling-interaction neural head,DNABERT-1,10,0.8164288584354787,0.8464094818687837,0.8394128014787181,0.531127500193602,0.7571184595197888
-D15,Derived evidence channel,dnabert2 / pool interaction / seed1,Pooling-interaction neural head,DNABERT-2,10,0.8114373949640858,0.8390684500832778,0.8348667811021612,0.5259538788909909,0.7524642394570852
-D16,Derived evidence channel,dnabert2 / pool interaction / seed2,Pooling-interaction neural head,DNABERT-2,10,0.8097210492764539,0.8402741831705918,0.8343525344167494,0.5293588104491564,0.7605303560542624
-D17,Derived evidence channel,dnabert2 / pool interaction / seed0,Pooling-interaction neural head,DNABERT-2,10,0.8090428709736764,0.8404803975517421,0.8350915618197912,0.5212489438567662,0.7533368549882618
-D18,Derived evidence channel,nt 500m human ref / pool interaction / seed0,Pooling-interaction neural head,Nucleotide Transformer,10,0.7983999782876385,0.8243072107243101,0.8236588682693083,0.4822038307128622,0.7274544882003698
-D19,Derived evidence channel,nt 500m human ref / pool interaction / seed1,Pooling-interaction neural head,Nucleotide Transformer,10,0.7974185442601949,0.8220065561173158,0.8221437756711838,0.4931271715706756,0.7401446420539195
-D20,Derived evidence channel,nt 500m human ref / pool interaction / seed2,Pooling-interaction neural head,Nucleotide Transformer,10,0.7967404821226176,0.8207570125901749,0.8235511465897452,0.4882486473547155,0.7390908049085778
-E01,Standalone sequence expert,Position-aware RC biophysical grammar,Neural expert,Position-aware biophysical grammar,10,0.8882812054375837,0.9136682285800036,0.9120547677440712,0.6786476950766172,0.8330859541939487
-E02,Standalone sequence expert,RC motif + biophysical grammar,Neural expert,RC biophysical grammar,10,0.8796535472617482,0.9025043955201492,0.9017653639345864,0.6591285582386948,0.825780280379575
-E03,Standalone sequence expert,"RC multiscale motif grammar, seed 2",Neural expert,RC motif grammar,10,0.8717514313934395,0.8971819285414684,0.896806643076552,0.6333200931960437,0.8128928500254151
-E04,Standalone sequence expert,"RC multiscale motif grammar, seed 1",Neural expert,RC motif grammar,10,0.8695107554282947,0.8936439456454608,0.8924025081986802,0.6337891267174692,0.8132793292838978
-E05,Standalone sequence expert,"RC multiscale motif grammar, seed 0",Neural expert,RC motif grammar,10,0.8619469980963729,0.8968442604705608,0.8953162287664774,0.6282270247303592,0.8086888651059925
 P01,Primitive feature head,DNAshapeR MGW/HelT/ProT/Roll,Histogram gradient boosting,DNA shape,10,0.8561481169711657,0.8648615649081325,0.8664092934805687,0.5779368746294486,0.7876220515108121
 P02,Primitive feature head,DNAshapeR five-track profile,Logistic (C=0.3),DNA shape,10,0.8466665781325297,0.8530402281339107,0.844286460970301,0.5587064286627591,0.7782488891853798
 P03,Primitive feature head,DNABERT-1 mean embedding,Linear head,DNABERT-1,10,0.8349587034587836,0.835389229848499,0.8258151369051794,0.5175841409329259,0.7548378524723751
 P04,Primitive feature head,DNAshapeR MGW/HelT/ProT/Roll,Logistic (C=1),DNA shape,10,0.8333784272992698,0.839784272646223,0.8313381785810001,0.5285473861193426,0.7626115830476067
-P05,Primitive feature head,Order-4 FCGR,ExtraTrees (300),Composition / FCGR,10,0.8324714672359386,0.8347067008348403,0.8264161058027945,0.5260423651483814,0.7609678700442652
-P06,Primitive feature head,Order-4 FCGR,Scaled logistic L2 (C=1),Composition / FCGR,10,0.8256157952266484,0.8286808727833634,0.8177699468110827,0.5098542017842995,0.7526798067314543
+P05,Primitive feature head,Order-4 FCGR,ExtraTrees (300),Composition and FCGR,10,0.8324714672359386,0.8347067008348403,0.8264161058027945,0.5260423651483814,0.7609678700442652
+P06,Primitive feature head,Order-4 FCGR,Scaled logistic L2 (C=1),Composition and FCGR,10,0.8256157952266484,0.8286808727833634,0.8177699468110827,0.5098542017842995,0.7526798067314543
 P07,Primitive feature head,DNABERT-2 embedding,Scaled logistic L2 (C=0.3),DNABERT-2,10,0.8209955024202307,0.8376621993584606,0.8316442242247369,0.5290842356398289,0.7626685626681232
-P08,Primitive feature head,Basic motif/position descriptors,ExtraTrees (300),Motif / position,10,0.8170461573015402,0.8308872686720079,0.8276033603861623,0.5154981408682084,0.7553141252571363
+P08,Primitive feature head,Basic motif/position descriptors,ExtraTrees (300),Motif and position,10,0.8170461573015402,0.8308872686720079,0.8276033603861623,0.5154981408682084,0.7553141252571363
 P09,Primitive feature head,DNABERT-2 embedding,Scaled logistic L2 (C=1),DNABERT-2,10,0.8169082196839603,0.8349678930599602,0.8278851333743052,0.5172841935112198,0.7556091903885084
 P10,Primitive feature head,Nucleotide Transformer CLS embedding,Linear head,Nucleotide Transformer,10,0.8146446713087006,0.8226614302761327,0.8206372889293192,0.4989304141691196,0.7457993563621861
-P11,Primitive feature head,Basic motif/position descriptors,Scaled logistic L2 (C=1),Motif / position,10,0.8092591355298795,0.8121947601088196,0.8071075568568142,0.5004973534904207,0.7478065158517617
+P11,Primitive feature head,Basic motif/position descriptors,Scaled logistic L2 (C=1),Motif and position,10,0.8092591355298795,0.8121947601088196,0.8071075568568142,0.5004973534904207,0.7478065158517617
 P12,Primitive feature head,CKSNAP (gap 0--5),Scaled logistic L2 (C=1),Physicochemical,10,0.806010084822826,0.8106168964449504,0.8005173543366084,0.4881341988042472,0.7427916562856014
 P13,Primitive feature head,Dinucleotide autocorrelation,ExtraTrees (300),Physicochemical,10,0.8005965448752338,0.8029385705590737,0.798753087673355,0.4711669938841599,0.7343362606774696
 P14,Primitive feature head,Dinucleotide autocorrelation,Scaled logistic L2 (C=1),Physicochemical,10,0.8005368830047204,0.7996700608128264,0.7996952862774488,0.4695965452127878,0.7315135733849478
 P15,Primitive feature head,Z-curve descriptors,ExtraTrees (300),Physicochemical,10,0.7962178278557694,0.8093322096872912,0.801752016108853,0.4698177617185036,0.730237329365186
 P16,Primitive feature head,CKSNAP (gap 0--5),ExtraTrees (300),Physicochemical,10,0.7922149494435577,0.7996355742978281,0.791871146495929,0.4580225069590988,0.7258317946016134
 P17,Primitive feature head,Nucleotide Transformer mean embedding,Linear head,Nucleotide Transformer,10,0.7883403915756005,0.7942850961335429,0.7893797145379435,0.4458982486527502,0.7195799247256275
-P18,Primitive feature head,4--6-mer composition,Logistic L2 (C=1),Composition / FCGR,10,0.784644279970863,0.784225459514686,0.771730160951468,0.4493575269838986,0.7209210918187686
-P19,Primitive feature head,4--6-mer composition,Logistic L2 (C=0.3),Composition / FCGR,10,0.7730963308175415,0.771715376415804,0.7606396156835157,0.4374353522134346,0.7142191964932897
+P18,Primitive feature head,4--6-mer composition,Logistic L2 (C=1),Composition and FCGR,10,0.784644279970863,0.784225459514686,0.771730160951468,0.4493575269838986,0.7209210918187686
+P19,Primitive feature head,4--6-mer composition,Logistic L2 (C=0.3),Composition and FCGR,10,0.7730963308175415,0.771715376415804,0.7606396156835157,0.4374353522134346,0.7142191964932897
 P20,Primitive feature head,DNAshapeR EP,Logistic (C=1),DNA shape,10,0.7720368794452033,0.7773580366966739,0.7691595344969152,0.4308432945290029,0.7130742018565823
 P21,Primitive feature head,DNABERT-1 CLS embedding,Linear head,DNABERT-1,10,0.737535148436714,0.7421721460256024,0.7285652793596196,0.3681506523991871,0.6797505313755354
 P22,Primitive feature head,Z-curve descriptors,Scaled logistic L2 (C=1),Physicochemical,10,0.7348252990505357,0.7288799709680804,0.7265449235885912,0.3695668477467625,0.6784077355245193
-P23,Primitive feature head,1--3-mer composition,Logistic L2 (C=1),Composition / FCGR,10,0.7221109303943096,0.730123039988687,0.7137134245407035,0.3595965651370547,0.6759992039823789
-P24,Primitive feature head,1--3-mer composition,Logistic L2 (C=0.3),Composition / FCGR,10,0.7033907479443953,0.7136500666164325,0.701508874817127,0.3423593999495521,0.6657987434035645
+P23,Primitive feature head,1--3-mer composition,Logistic L2 (C=1),Composition and FCGR,10,0.7221109303943096,0.730123039988687,0.7137134245407035,0.3595965651370547,0.6759992039823789
+P24,Primitive feature head,1--3-mer composition,Logistic L2 (C=0.3),Composition and FCGR,10,0.7033907479443953,0.7136500666164325,0.701508874817127,0.3423593999495521,0.6657987434035645
 P25,Primitive feature head,EIIP autocorrelation,ExtraTrees (300),Physicochemical,9,0.6717670561080175,0.6847465954793485,0.6753140876067331,0.2772658630782476,0.6277796929374645
 P26,Primitive feature head,EIIP autocorrelation,Scaled logistic L2 (C=1),Physicochemical,9,0.6584135299174656,0.6774654554644286,0.6629831034516749,0.2718383604758561,0.6281928781464978
-P27,Primitive feature head,Promoter motif/position descriptors,ExtraTrees (300),Motif / position,6,0.8442248498015181,0.8469626290940023,0.8563410928101876,0.5362784636977055,0.7646894187011002
-P28,Primitive feature head,Promoter motif/position descriptors,Scaled logistic L2 (C=1),Motif / position,6,0.8259943921053408,0.8258530533225051,0.8349210314903607,0.506014618871688,0.7494443080790183
-P29,Primitive feature head,Center-context positional descriptors,Scaled logistic L2 (C=1),Motif / position,3,0.7381984694917231,0.752086266486249,0.7156886264909028,0.4049854621221302,0.6982057658293526
-P30,Primitive feature head,Center-context positional descriptors,ExtraTrees (300),Motif / position,3,0.7352320022413621,0.757854756869417,0.7308292589408878,0.3950665020191115,0.6931442087529356
+P27,Primitive feature head,Promoter motif/position descriptors,ExtraTrees (300),Motif and position,6,0.8442248498015181,0.8469626290940023,0.8563410928101876,0.5362784636977055,0.7646894187011002
+P28,Primitive feature head,Promoter motif/position descriptors,Scaled logistic L2 (C=1),Motif and position,6,0.8259943921053408,0.8258530533225051,0.8349210314903607,0.506014618871688,0.7494443080790183
+P29,Primitive feature head,Center-context positional descriptors,Scaled logistic L2 (C=1),Motif and position,3,0.7381984694917231,0.752086266486249,0.7156886264909028,0.4049854621221302,0.6982057658293526
+P30,Primitive feature head,Center-context positional descriptors,ExtraTrees (300),Motif and position,3,0.7352320022413621,0.757854756869417,0.7308292589408878,0.3950665020191115,0.6931442087529356
+E01,Standalone sequence expert,Position-aware RC biophysical grammar,Neural expert,Position-aware biophysical grammar,10,0.8882812054375837,0.9136682285800036,0.9120547677440712,0.6786476950766172,0.8330859541939487
+E02,Standalone sequence expert,RC motif and biophysical grammar,Neural expert,RC biophysical grammar,10,0.8796535472617482,0.9025043955201492,0.9017653639345864,0.6591285582386948,0.825780280379575
+E03,Standalone sequence expert,"RC multiscale motif grammar, initialization 3",Neural expert,RC motif grammar,10,0.8717514313934395,0.8971819285414684,0.896806643076552,0.6333200931960437,0.8128928500254151
+E04,Standalone sequence expert,"RC multiscale motif grammar, initialization 2",Neural expert,RC motif grammar,10,0.8695107554282947,0.8936439456454608,0.8924025081986802,0.6337891267174692,0.8132793292838978
+E05,Standalone sequence expert,"RC multiscale motif grammar, initialization 1",Neural expert,RC motif grammar,10,0.8619469980963729,0.8968442604705608,0.8953162287664774,0.6282270247303592,0.8086888651059925
+D01,Derived evidence channel,Cross-fitted dual meta-evidence channel,Composite predictor,Meta-evidence,10,0.9239101776745932,0.9307216166751194,0.9308673005623832,0.7168688655885681,0.857009696206053
+D02,Derived evidence channel,Integrated score-residual evidence channel,Integrated residual predictor,Score-residual evidence,10,0.9102229232775386,0.9159870151854768,0.914805569641642,0.6890737445362787,0.8432925662378103
+D03,Derived evidence channel,Local three-foundation interaction branch,Composite predictor,Pre-classifier local fusion,10,0.8730742876810019,0.8954554449438034,0.8937213516407274,0.6356806868761282,0.8109430115575057
+D04,Derived evidence channel,Mean-pooled three-foundation interaction branch,Composite predictor,Pre-classifier local fusion,10,0.8730053047747779,0.8927489057828384,0.8904968353160081,0.6295610213536837,0.8070777214746923
+D05,Derived evidence channel,Feature-complementarity view-token channel,View-token expert,Deep feature interaction,10,0.8681368112304353,0.8977824250980643,0.8965761443963677,0.623795116998574,0.8033212146450655
+D06,Derived evidence channel,Local DNABERT-2 and DNABERT-1 interaction branch,Composite predictor,Pre-classifier local fusion,10,0.8652576415782491,0.8908787136839965,0.889888475218024,0.6153086682954314,0.8008756698900482
+D07,Derived evidence channel,Local DNABERT-2 and Nucleotide Transformer interaction branch,Composite predictor,Pre-classifier local fusion,10,0.8497676206928549,0.8741937816655531,0.8702474236557768,0.585672825145626,0.7868434111523214
+D08,Derived evidence channel,Local DNABERT-2 cross-feature branch,Composite predictor,Pre-classifier local fusion,10,0.8414797156431504,0.8684569842484864,0.8676195406607242,0.5588289870289644,0.7693091692908638
+D09,Derived evidence channel,Cross-foundation attention interaction A,Cross-attention interaction head,Cross-foundation interaction,10,0.8376930997652176,0.873224760159186,0.8648214579176496,0.5822905273989869,0.7835424342312354
+D10,Derived evidence channel,Cross-foundation attention interaction B,Cross-attention interaction head,Cross-foundation interaction,10,0.8369923371603527,0.868540770757436,0.8607094584859556,0.5815338319026815,0.7834705921746413
+D11,Derived evidence channel,Cross-foundation attention interaction C,Cross-attention interaction head,Cross-foundation interaction,10,0.8362575637418418,0.8712185893788591,0.8648241910276788,0.5911118967376152,0.7901406913477602
+D12,Derived evidence channel,DNABERT-1 pooling interaction A,Pooling-interaction neural head,DNABERT-1,10,0.816837087851707,0.8490517544656713,0.8424272731565449,0.5432971321426063,0.7667355503980916
+D13,Derived evidence channel,DNABERT-1 pooling interaction B,Pooling-interaction neural head,DNABERT-1,10,0.8165740407663327,0.8472238279439782,0.8413679583267507,0.5347700504366258,0.7610532464973159
+D14,Derived evidence channel,DNABERT-1 pooling interaction C,Pooling-interaction neural head,DNABERT-1,10,0.8164288584354787,0.8464094818687837,0.8394128014787181,0.531127500193602,0.7571184595197888
+D15,Derived evidence channel,DNABERT-2 pooling interaction A,Pooling-interaction neural head,DNABERT-2,10,0.8114373949640858,0.8390684500832778,0.8348667811021612,0.5259538788909909,0.7524642394570852
+D16,Derived evidence channel,DNABERT-2 pooling interaction B,Pooling-interaction neural head,DNABERT-2,10,0.8097210492764539,0.8402741831705918,0.8343525344167494,0.5293588104491564,0.7605303560542624
+D17,Derived evidence channel,DNABERT-2 pooling interaction C,Pooling-interaction neural head,DNABERT-2,10,0.8090428709736764,0.8404803975517421,0.8350915618197912,0.5212489438567662,0.7533368549882618
+D18,Derived evidence channel,Nucleotide Transformer pooling interaction A,Pooling-interaction neural head,Nucleotide Transformer,10,0.7983999782876385,0.8243072107243101,0.8236588682693083,0.4822038307128622,0.7274544882003698
+D19,Derived evidence channel,Nucleotide Transformer pooling interaction B,Pooling-interaction neural head,Nucleotide Transformer,10,0.7974185442601949,0.8220065561173158,0.8221437756711838,0.4931271715706756,0.7401446420539195
+D20,Derived evidence channel,Nucleotide Transformer pooling interaction C,Pooling-interaction neural head,Nucleotide Transformer,10,0.7967404821226176,0.8207570125901749,0.8235511465897452,0.4882486473547155,0.7390908049085778

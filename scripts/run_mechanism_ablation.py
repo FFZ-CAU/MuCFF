@@ -89,9 +89,9 @@ def crossfit_state(
     return oof_probability, np.mean(eval_probabilities, axis=0)
 
 
-def paired_summary(frame, proposed, reference, metric):
+def paired_summary(frame, comparison_method, reference_method, metric):
     table = frame.pivot(index="task_id", columns="method", values=metric)
-    differences = (table[proposed] - table[reference]).to_numpy()
+    differences = (table[comparison_method] - table[reference_method]).to_numpy()
     generator = np.random.default_rng(20260810)
     bootstrap = differences[
         generator.integers(0, len(differences), size=(200_000, len(differences)))
@@ -99,10 +99,10 @@ def paired_summary(frame, proposed, reference, metric):
     nonzero = differences[np.abs(differences) > 1e-12]
     p_value = float(wilcoxon(nonzero, alternative="greater", method="exact").pvalue)
     return {
-        "comparison": f"{proposed}_vs_{reference}",
+        "comparison": f"{comparison_method}_vs_{reference_method}",
         "metric": metric,
-        "proposed_mean": float(table[proposed].mean()),
-        "reference_mean": float(table[reference].mean()),
+        "comparison_method_mean": float(table[comparison_method].mean()),
+        "reference_method_mean": float(table[reference_method].mean()),
         "mean_difference": float(differences.mean()),
         "ci95_low": float(np.quantile(bootstrap, 0.025)),
         "ci95_high": float(np.quantile(bootstrap, 0.975)),
@@ -153,13 +153,15 @@ def main() -> None:
         args.output / "mechanism_ablation_summary.csv", index=False
     )
     comparisons = []
-    for proposed, reference in (
+    for comparison_method, reference_method in (
         ("routed_l2", "aligned_l2"),
         ("mucff", "aligned_sparse"),
         ("mucff", "routed_l2"),
     ):
         for metric in ("auc", "auprc", "mcc", "accuracy", "balanced_accuracy"):
-            comparisons.append(paired_summary(frame, proposed, reference, metric))
+            comparisons.append(
+                paired_summary(frame, comparison_method, reference_method, metric)
+            )
     pd.DataFrame(comparisons).to_csv(
         args.output / "mechanism_ablation_comparisons.csv", index=False
     )

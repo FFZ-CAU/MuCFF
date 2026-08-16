@@ -39,6 +39,7 @@ def run_task(
         ledger.y_oof,
         ledger.eval_scores,
         ledger.source_families,
+        ledger.source_ids,
     )
     predictions["raw_score_logistic_l2"] = crossfit_logistic_control(
         ledger.oof_scores,
@@ -59,7 +60,7 @@ def run_task(
     aligned = crossfit_aligned_control(
         ledger.oof_scores, ledger.y_oof, ledger.eval_scores, ledger.task_id, config
     )
-    proposed = crossfit_mucff(
+    mucff_result = crossfit_mucff(
         ledger.oof_scores,
         ledger.y_oof,
         ledger.eval_scores,
@@ -71,7 +72,7 @@ def run_task(
         aligned.oof_probability, aligned.eval_probability
     )
     predictions["mucff"] = BaselinePrediction(
-        proposed.oof_probability, proposed.eval_probability
+        mucff_result.oof_probability, mucff_result.eval_probability
     )
 
     rows = []
@@ -122,8 +123,8 @@ def summarize(metrics: pd.DataFrame) -> pd.DataFrame:
         "specificity",
     ]
     summary = metrics.groupby("method", as_index=False)[numeric].mean()
-    proposed_auc = float(summary.loc[summary.method.eq("mucff"), "auc"].iloc[0])
-    summary["mucff_minus_method_auc"] = proposed_auc - summary["auc"]
+    mucff_auc = float(summary.loc[summary.method.eq("mucff"), "auc"].iloc[0])
+    summary["mucff_minus_method_auc"] = mucff_auc - summary["auc"]
     return summary.sort_values("auc", ascending=False)
 
 

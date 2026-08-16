@@ -12,8 +12,8 @@ Each task directory contains one compressed NumPy archive named `evidence_ledger
 | `source_ids` | `(n_sources,)` | Source identifiers linked to `source_metadata.csv` |
 | `source_families` | `(n_sources,)` | Evidence-family labels |
 
-`dataset_manifest.csv` records primary task definitions, partition protocols, class counts, and source counts. `ledger_manifest.csv` provides the machine-readable primary ledger index. The `auxiliary/` directory contains the separately evaluated 30-source enhancer-recognition and enhancer-strength ledgers; `auxiliary_ledger_manifest.csv` indexes them. They are excluded from the primary ten-task aggregate.
+`dataset_manifest.csv` records primary task definitions, partition protocols, class counts, and source counts. `ledger_manifest.csv` provides the machine-readable primary ledger index. The `auxiliary/` directory contains the separately evaluated 30-source enhancer-recognition and enhancer-strength ledgers; `auxiliary_ledger_manifest.csv` indexes them and `auxiliary_source_metadata.csv` defines their stable source identifiers. They are excluded from the primary ten-task aggregate.
 
-`dataset_sources.csv` lists the upstream benchmark resources. `model_manifest.csv` lists the foundation models and DNA-shape software represented in the ledgers. The repository contains labels and derived source probabilities; it does not redistribute pretrained weights or raw benchmark sequences.
+`dataset_sources.csv` lists the upstream benchmark resources. `model_manifest.csv` lists the foundation models and DNA-shape software represented in the ledgers. The repository contains labels and derived source probabilities; pretrained weights and raw benchmark sequences are obtained from the listed upstream resources. The released ledgers define the reproducibility boundary for the reported fusion, comparator, ablation, and robustness analyses.
 
 All source probabilities are stored in the same column order for the OOF and evaluation matrices within a task.

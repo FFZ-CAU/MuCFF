@@ -4,8 +4,8 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "mucff"
-version = "1.0.0"
-description = "Multisource Complementary Feature Fusion for regulatory DNA prediction"
+version = "1.0.1"
+description = "Multisource Complementary Feature Fusion for functional DNA sequence classification"
 readme = "README.md"
 requires-python = ">=3.10"
 authors = [

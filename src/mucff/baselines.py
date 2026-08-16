@@ -173,6 +173,7 @@ def fixed_fusion_baselines(
     labels: np.ndarray,
     eval_scores: np.ndarray,
     source_families: tuple[str, ...],
+    source_ids: tuple[str, ...] = (),
 ) -> dict[str, BaselinePrediction]:
     oof = clip_prob(oof_scores)
     evaluation = clip_prob(eval_scores)
@@ -204,6 +205,21 @@ def fixed_fusion_baselines(
             _dempster_shafer_pool(evaluation, reliability),
         ),
     }
+
+    if source_ids:
+        if len(source_ids) != oof.shape[1]:
+            raise ValueError("Source identifiers must match the score columns.")
+        for label, prefixes in {
+            "best_primitive_head": ("P",),
+            "best_standalone_source": ("P", "E"),
+        }.items():
+            indices = np.asarray(
+                [index for index, source_id in enumerate(source_ids) if source_id.startswith(prefixes)],
+                dtype=int,
+            )
+            if indices.size:
+                selected = int(indices[np.argmax(aucs[indices])])
+                results[label] = BaselinePrediction(oof[:, selected], evaluation[:, selected])
 
     attention_grid = [0.0, 0.5, 1.0, 2.0, 4.0]
     attention_oof = [_attention_pool(oof, reliability, alpha) for alpha in attention_grid]

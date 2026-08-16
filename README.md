@@ -1,6 +1,6 @@
 # MuCFF
 
-MuCFF is the reference implementation of Multisource Complementary Feature Fusion for regulatory DNA prediction. It integrates cross-fitted evidence through score alignment, reliability-guided residual routing, and a joint sparse decision model.
+MuCFF is the reference implementation of Multisource Complementary Feature Fusion for functional DNA sequence classification. It integrates cross-fitted evidence through score alignment, reliability-guided residual routing, and a joint sparse decision model.
 
 Repository: https://github.com/FFZ-CAU/MuCFF
 
@@ -66,12 +66,13 @@ The robustness command reports source-group removal with refitting and fixed-mod
 - `configs`: reported fusion and evaluation settings.
 - `data/processed`: cross-fitted training scores and fixed-partition evaluation scores.
 - `data/source_metadata.csv`: stable source identifiers, evidence types, and prediction heads.
+- `data/auxiliary_source_metadata.csv`: stable source identifiers for the auxiliary enhancer tasks.
 - `data/dataset_sources.csv` and `data/model_manifest.csv`: upstream data and representation resources.
 - `src/mucff`: evidence representations, MuCFF, matched controls, source modules, metrics, and statistics.
 - `tests`: ledger, representation, and numerical regression tests.
 - `results/reference`: manuscript result tables and reference predictions.
 
-The released evidence ledgers are the inputs to the reported fusion analyses. Their arrays and dimensions are documented in `data/README.md`.
+The released evidence ledgers are the reproducibility boundary for all reported fusion, comparator, ablation, and robustness analyses. Their arrays and dimensions are documented in `data/README.md`. Source definitions and extraction modules document upstream evidence construction; raw sequences and pretrained weights are obtained from the cited upstream resources.
 
 The complete execution contract is provided in `docs/reproduction.md`. Evidence-source families and implementation modules are indexed in `docs/source_bank.md`.
 
@@ -85,4 +86,4 @@ python -m pytest
 
 Please cite:
 
-Wentao Gong, Jiaying Zhang, Jingrui Li, Huihui Pang, and Feifan Zhang. A multisource complementary feature fusion method for improving regulatory DNA prediction.
+Wentao Gong, Jiaying Zhang, Jingrui Li, Huihui Pang, and Feifan Zhang. A multisource complementary feature fusion method for improving functional DNA sequence classification.

@@ -21,6 +21,7 @@ def test_rice_6ma_reference_metrics():
     )
     metrics, _ = run_task(ledger, config, threshold_settings)
     indexed = metrics.set_index("method")
+    assert {"best_primitive_head", "best_standalone_source", "best_source"}.issubset(indexed.index)
     expected = {
         "mucff": (0.8846548188653452, 0.8927166645567698, 0.5398991206424848),
         "sparse_aligned_control": (

@@ -47,6 +47,7 @@ def make_sparse_decision(config: MuCFFConfig):
         LogisticRegression(
             C=config.regularization_c,
             solver="saga",
+            penalty="elasticnet",
             l1_ratio=config.l1_ratio,
             max_iter=config.max_iterations,
             class_weight="balanced",
