@@ -26,6 +26,17 @@ class MuCFFConfig:
     max_iterations: int = 2200
     probability_epsilon: float = 1e-5
     routing_temperature: float = 0.20
+    attention_dimension: int = 16
+    attention_heads: int = 4
+    attention_hidden_dimension: int = 32
+    attention_dropout: float = 0.15
+    attention_learning_rate: float = 1e-3
+    attention_weight_decay: float = 1e-3
+    attention_batch_size: int = 2048
+    attention_max_epochs: int = 24
+    attention_patience: int = 4
+    attention_validation_fraction: float = 0.10
+    attention_threads: int = 4
 
 
 @dataclass(frozen=True)

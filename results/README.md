@@ -10,6 +10,9 @@
 | Foundation-evidence ablation | `reference/foundation_evidence_ablation.csv` |
 | Cumulative evidence construction | `reference/cumulative_evidence_construction.csv` |
 | Fusion-head sensitivity | `reference/fusion_head_sensitivity.csv` |
+| Matched QKV attention metrics | `reference/reference_attention_task_metrics.csv` |
+| Matched QKV attention statistics | `reference/reference_attention_auc_comparisons.csv` |
+| Matched QKV prediction verification | `reference/reference_attention_predictions.npz` |
 | Taskwise mechanism decomposition | `reference/taskwise_mechanism_decomposition.csv` |
 | Source inventory and performance | `reference/source_performance_summary.csv` |
 | MuCFF versus sparse aligned control | `reference/reference_metric_summary.csv` |
@@ -18,3 +21,4 @@
 | Auxiliary iEnhancer results | `reference/auxiliary_enhancer_metrics.csv` |
 
 The `reference_predictions.npz` archive contains the task labels and the OOF and evaluation probabilities for MuCFF and the sparse aligned control.
+The `reference_attention_predictions.npz` archive contains the corresponding labels and predictions for the two residual QKV controls, MuCFF, and the sparse aligned control.

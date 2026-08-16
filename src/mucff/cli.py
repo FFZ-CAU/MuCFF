@@ -8,13 +8,13 @@ from pathlib import Path
 
 import pandas as pd
 
-from .extended_baselines import run_extended_baselines
+from .extended_baselines import run_attention_benchmark, run_extended_baselines
 from .experiment import compare_methods, load_config, run_task, summarize, write_task_results
 from .ledger import discover_ledgers, load_ledger
 from .metrics import binary_metrics, select_mcc_threshold
 from .reporting import make_result_figures
 from .robustness import run_robustness, summarize_robustness
-from .verification import verify_predictions
+from .verification import METHODS, verify_predictions
 
 
 def _parser() -> argparse.ArgumentParser:
@@ -35,12 +35,19 @@ def _parser() -> argparse.ArgumentParser:
     )
     verify.add_argument("--tolerance", type=float, default=2e-7)
     verify.add_argument("--tasks", nargs="*", default=None)
+    verify.add_argument("--methods", nargs="*", default=None)
     benchmark = subparsers.add_parser("benchmark", help="Run extended learned-fusion baselines")
     benchmark.add_argument("--data", type=Path, default=Path("data/processed"))
     benchmark.add_argument("--config", type=Path, default=Path("configs/main_experiment.json"))
     benchmark.add_argument("--output", type=Path, default=Path("outputs/extended_baselines"))
     benchmark.add_argument("--tasks", nargs="*", default=None)
     benchmark.add_argument("--device", choices=["cpu", "cuda"], default="cuda")
+    benchmark.add_argument(
+        "--suite",
+        choices=["all", "attention"],
+        default="all",
+        help="Run all extended baselines or only the matched QKV attention suite",
+    )
     plot = subparsers.add_parser("plot", help="Generate quantitative result figures")
     plot.add_argument("--reference", type=Path, default=Path("results/reference"))
     plot.add_argument("--output", type=Path, default=Path("outputs/figures"))
@@ -59,7 +66,14 @@ def main() -> None:
     args = _parser().parse_args()
     if args.command == "verify":
         task_ids = set(args.tasks) if args.tasks else None
-        report = verify_predictions(args.output, args.reference, args.tolerance, task_ids)
+        methods = tuple(args.methods) if args.methods else METHODS
+        report = verify_predictions(
+            args.output,
+            args.reference,
+            args.tolerance,
+            task_ids,
+            methods,
+        )
         report.to_csv(args.output / "verification_report.csv", index=False)
         print(f"verified {report.task_id.nunique()} tasks", flush=True)
         return
@@ -98,7 +112,10 @@ def main() -> None:
             ledger = load_ledger(path)
             if selected is not None and ledger.task_id not in selected:
                 continue
-            predictions = run_extended_baselines(ledger, config, args.device)
+            if args.suite == "attention":
+                predictions = run_attention_benchmark(ledger, config, args.device)
+            else:
+                predictions = run_extended_baselines(ledger, config, args.device)
             arrays = {"y_oof": ledger.y_oof, "y_eval": ledger.y_eval}
             for method, (oof_probability, eval_probability) in predictions.items():
                 threshold = select_mcc_threshold(

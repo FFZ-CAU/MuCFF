@@ -59,6 +59,14 @@ mucff plot --reference results/reference --output outputs/figures
 mucff robustness --data data/processed --config configs/main_experiment.json --output outputs/robustness
 ```
 
+The matched QKV attention comparison can be reproduced independently on CPU:
+
+```bash
+python -m pip install -r requirements-attention-lock.txt
+mucff benchmark --suite attention --device cpu --data data/processed --config configs/main_experiment.json --output outputs/attention_benchmark
+mucff verify --output outputs/attention_benchmark --reference results/reference/reference_attention_predictions.npz --methods source_self_attention anchor_query_qkv
+```
+
 The robustness command reports source-group removal with refitting and fixed-model deployment tests for missing, conflicting, and noisy source scores.
 
 ## Repository contents

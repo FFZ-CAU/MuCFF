@@ -16,6 +16,7 @@ def verify_predictions(
     reference_archive: str | Path,
     tolerance: float = 2e-7,
     task_ids: set[str] | None = None,
+    methods: tuple[str, ...] = METHODS,
 ) -> pd.DataFrame:
     output_directory = Path(output_root)
     rows = []
@@ -40,7 +41,7 @@ def verify_predictions(
                         observed[label], reference[f"{task_id}__{label}"]
                     ):
                         raise AssertionError(f"Label mismatch for {task_id}: {label}")
-                for method in METHODS:
+                for method in methods:
                     for partition in ("oof", "eval"):
                         observed_values = observed[f"{method}_{partition}"]
                         reference_values = reference[f"{task_id}__{method}_{partition}"]

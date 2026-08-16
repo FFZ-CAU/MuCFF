@@ -26,6 +26,19 @@ def load_config(path: str | Path) -> MuCFFConfig:
         max_iterations=int(values["max_iterations"]),
         probability_epsilon=float(values["probability_epsilon"]),
         routing_temperature=float(values.get("routing_temperature", 0.20)),
+        attention_dimension=int(values.get("attention_dimension", 16)),
+        attention_heads=int(values.get("attention_heads", 4)),
+        attention_hidden_dimension=int(values.get("attention_hidden_dimension", 32)),
+        attention_dropout=float(values.get("attention_dropout", 0.15)),
+        attention_learning_rate=float(values.get("attention_learning_rate", 1e-3)),
+        attention_weight_decay=float(values.get("attention_weight_decay", 1e-3)),
+        attention_batch_size=int(values.get("attention_batch_size", 2048)),
+        attention_max_epochs=int(values.get("attention_max_epochs", 24)),
+        attention_patience=int(values.get("attention_patience", 4)),
+        attention_validation_fraction=float(
+            values.get("attention_validation_fraction", 0.10)
+        ),
+        attention_threads=int(values.get("attention_threads", 4)),
     )
 
 

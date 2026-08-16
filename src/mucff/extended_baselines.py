@@ -216,6 +216,8 @@ def rank_average(predictions: list[np.ndarray]) -> np.ndarray:
 
 
 def run_extended_baselines(ledger, config: MuCFFConfig, device: str = "cpu") -> dict[str, tuple[np.ndarray, np.ndarray]]:
+    from .attention_baselines import run_qkv_attention_baselines
+
     anchor = select_anchor(ledger.oof_scores, ledger.y_oof)
     states = {
         "raw": clip_prob(ledger.oof_scores).astype(np.float32),
@@ -240,7 +242,6 @@ def run_extended_baselines(ledger, config: MuCFFConfig, device: str = "cpu") -> 
         ledger.y_oof,
         ledger.eval_scores,
         ledger.task_id,
-        ledger.source_families,
         config,
     )
     predictions = {
@@ -270,12 +271,43 @@ def run_extended_baselines(ledger, config: MuCFFConfig, device: str = "cpu") -> 
         rank_average([predictions[name][0] for name in robust_methods]),
         rank_average([predictions[name][1] for name in robust_methods]),
     )
+    predictions.update(run_qkv_attention_baselines(ledger, config, device))
     mucff = crossfit_mucff(
         ledger.oof_scores,
         ledger.y_oof,
         ledger.eval_scores,
         ledger.task_id,
+        ledger.source_families,
         config,
+    )
+    predictions["mucff"] = (mucff.oof_probability, mucff.eval_probability)
+    return predictions
+
+
+def run_attention_benchmark(
+    ledger, config: MuCFFConfig, device: str = "cpu"
+) -> dict[str, tuple[np.ndarray, np.ndarray]]:
+    from .attention_baselines import run_qkv_attention_baselines
+
+    predictions = run_qkv_attention_baselines(ledger, config, device)
+    aligned = crossfit_aligned_control(
+        ledger.oof_scores,
+        ledger.y_oof,
+        ledger.eval_scores,
+        ledger.task_id,
+        config,
+    )
+    mucff = crossfit_mucff(
+        ledger.oof_scores,
+        ledger.y_oof,
+        ledger.eval_scores,
+        ledger.task_id,
+        ledger.source_families,
+        config,
+    )
+    predictions["sparse_aligned_control"] = (
+        aligned.oof_probability,
+        aligned.eval_probability,
     )
     predictions["mucff"] = (mucff.oof_probability, mucff.eval_probability)
     return predictions
