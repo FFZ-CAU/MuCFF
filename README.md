@@ -87,3 +87,10 @@ python -m pytest
 Please cite:
 
 Wentao Gong, Jiaying Zhang, Jingrui Li, Huihui Pang, and Feifan Zhang. A multisource complementary feature fusion method for improving functional DNA sequence classification.
+
+## License
+
+The MuCFF source code is released under the MIT License. Benchmark data,
+derived evidence ledgers, pretrained models, and model-derived artifacts retain
+the terms of their upstream resources and are not relicensed by this software
+license.

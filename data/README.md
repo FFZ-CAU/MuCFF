@@ -17,3 +17,7 @@ Each task directory contains one compressed NumPy archive named `evidence_ledger
 `dataset_sources.csv` lists the upstream benchmark resources. `model_manifest.csv` lists the foundation models and DNA-shape software represented in the ledgers. The repository contains labels and derived source probabilities; pretrained weights and raw benchmark sequences are obtained from the listed upstream resources. The released ledgers define the reproducibility boundary for the reported fusion, comparator, ablation, and robustness analyses.
 
 All source probabilities are stored in the same column order for the OOF and evaluation matrices within a task.
+
+The repository MIT License applies to software source code. Benchmark data,
+derived evidence ledgers, pretrained models, and model-derived artifacts remain
+subject to the terms of their upstream resources.
