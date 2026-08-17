@@ -1,24 +1,22 @@
 # Result index
 
-| Manuscript evidence | Public command or artifact |
-| --- | --- |
-| Ten-task MuCFF metrics | `mucff run --data data/processed --config configs/main_experiment.json --output outputs/main_experiment` |
-| Prediction-level numerical verification | `mucff verify --output outputs/main_experiment --reference results/reference/reference_predictions.npz` |
-| Framework-level comparison | `reference/framework_comparison.csv` |
-| Fusion-operator comparison | `reference/fusion_operator_comparison.csv` |
-| Score-representation analysis | `reference/score_representation_analysis.csv` |
-| Foundation-evidence ablation | `reference/foundation_evidence_ablation.csv` |
-| Cumulative evidence construction | `reference/cumulative_evidence_construction.csv` |
-| Fusion-head sensitivity | `reference/fusion_head_sensitivity.csv` |
-| Matched QKV attention metrics | `reference/reference_attention_task_metrics.csv` |
-| Matched QKV attention statistics | `reference/reference_attention_auc_comparisons.csv` |
-| Matched QKV prediction verification | `reference/reference_attention_predictions.npz` |
-| Taskwise mechanism decomposition | `reference/taskwise_mechanism_decomposition.csv` |
-| Source inventory and performance | `reference/source_performance_summary.csv` |
-| MuCFF versus sparse aligned control | `reference/reference_metric_summary.csv` |
-| Source availability and perturbations | `reference/robustness/robustness_task_metrics.csv` |
-| Robustness summary | `reference/robustness/robustness_summary.csv` |
-| Auxiliary iEnhancer results | `reference/auxiliary_enhancer_metrics.csv` |
+## Same-ledger experiments
 
-The `reference_predictions.npz` archive contains the task labels and the OOF and evaluation probabilities for MuCFF and the sparse aligned control.
-The `reference_attention_predictions.npz` archive contains the corresponding labels and predictions for the two residual QKV controls, MuCFF, and the sparse aligned control.
+| Evidence | Artifact |
+| --- | --- |
+| Final task metrics and primary aggregate | `reference/selected_framework_metrics.csv`, `reference/selected_framework_summary.csv` |
+| Released prediction arrays | `reference/reference_predictions.npz` |
+| Source-level performance | `reference/single_source_metrics_by_run.csv`, `reference/single_source_summary.csv` |
+| OOF-selected source controls | `reference/oof_selected_single_source_by_task.csv`, `reference/oof_selected_standalone_source_by_task.csv` |
+| Fusion comparator summary | `reference/matched_framework_comparisons.csv` |
+| Fusion-operator metrics | `reference/fusion_operator_task_metrics.csv`, `reference/fusion_operator_summary.csv` |
+| Evidence-bank growth | `reference/evidence_growth_run_metrics.csv`, `reference/evidence_growth_task_metrics.csv`, `reference/evidence_growth_summary.csv` |
+| Dual-decision weight sensitivity | `reference/dual_decision_results.csv` |
+| Source refitting ablations | `reference/source_refit_task_metrics.csv`, `reference/source_refit_summary.csv` |
+| Missing and perturbed source tests | `reference/deployment_robustness_task_metrics.csv`, `reference/deployment_robustness_summary.csv` |
+
+The reference archive stores labels and OOF/evaluation probabilities for `aligned_logistic_l2`, `routed_logistic_l2`, `aligned_xgboost`, and `mucff` for every run ledger.
+
+## Task-model context
+
+`literature_context/comparison_protocol_registry.csv` records the dataset partition, model-selection unit, and comparison status for published task models. Published values and protocol-matched reruns remain separate from same-ledger fusion controls because their training and selection procedures are not interchangeable.

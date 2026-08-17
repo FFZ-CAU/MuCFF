@@ -1,0 +1,31 @@
+task,method,model_family,auc,accuracy,mcc,protocol,evidence_source
+Enhancer recognition,iEnhancer-2L,PseKNC plus SVM,0.806,0.730,0.460,released independent test,CapsEnhancer Table 2
+Enhancer recognition,EnhancerPred,multifeature SVM,0.801,0.740,0.480,released independent test,CapsEnhancer Table 2
+Enhancer recognition,iEnhancer-EL,ensemble learning,0.817,0.748,0.496,released independent test,CapsEnhancer Table 2
+Enhancer recognition,iEnhancer-ECNN,CNN ensemble,0.832,0.769,0.537,released independent test,CapsEnhancer Table 2
+Enhancer recognition,iEnhancer-XG,multifeature XGBoost,,0.758,0.515,released independent test,CapsEnhancer Table 2
+Enhancer recognition,Enhancer-FRL,feature-representation learning,0.857,0.780,0.561,released independent test,CapsEnhancer Table 2
+Enhancer recognition,BERT-Enhancer,genomic language model,,0.756,0.514,released independent test,CapsEnhancer Table 2
+Enhancer recognition,iEnhancer-EBLSTM,k-mer BiLSTM ensemble,0.835,0.772,0.534,released independent test,CapsEnhancer Table 2
+Enhancer recognition,iEnhancer-RF,multifeature random forest,0.860,0.798,0.595,released independent test,CapsEnhancer Table 2
+Enhancer recognition,iEnhancer-RD,representation-learning predictor,0.844,0.788,0.576,released independent test,CapsEnhancer Table 2
+Enhancer recognition,spEnhancer,sequence-profile predictor,0.824,0.773,0.579,released independent test,CapsEnhancer Table 2
+Enhancer recognition,iEnhancer-DCSA,dual-scale CNN plus spatial attention,0.856,0.825,0.651,released independent test,CapsEnhancer Table 2
+Enhancer recognition,iEnhancer-DCSV,DenseNet plus attention,0.853,0.790,0.581,released independent test,iEnhancer-DCSV
+Enhancer recognition,NEPERS,multiview deep forest,0.948,0.865,0.725,released independent test,NEPERS and CapsEnhancer
+Enhancer recognition,CapsEnhancer,FCGR capsule network,0.980,0.945,0.890,released independent test,CapsEnhancer Table 2
+Enhancer recognition,DeepDualEnhancer,DNABERT dual-feature network,0.866,0.820,0.646,released benchmark; sequence identity audit retained,DeepDualEnhancer
+Enhancer strength,iEnhancer-2L,PseKNC plus SVM,0.668,0.605,0.218,released independent test,CapsEnhancer Table 3
+Enhancer strength,EnhancerPred,multifeature SVM,0.579,0.550,0.102,released independent test,CapsEnhancer Table 3
+Enhancer strength,iEnhancer-EL,ensemble learning,0.680,0.610,0.222,released independent test,CapsEnhancer Table 3
+Enhancer strength,iEnhancer-ECNN,CNN ensemble,0.748,0.678,0.368,released independent test,CapsEnhancer Table 3
+Enhancer strength,iEnhancer-XG,multifeature XGBoost,,0.635,0.272,released independent test,CapsEnhancer Table 3
+Enhancer strength,Enhancer-FRL,feature-representation learning,0.872,0.735,0.539,released independent test,CapsEnhancer Table 3
+Enhancer strength,iEnhancer-EBLSTM,k-mer BiLSTM ensemble,0.688,0.658,0.324,released independent test,CapsEnhancer Table 3
+Enhancer strength,iEnhancer-RF,multifeature random forest,0.970,0.850,0.709,released independent test,CapsEnhancer Table 3
+Enhancer strength,iEnhancer-RD,representation-learning predictor,0.792,0.705,0.426,released independent test,CapsEnhancer Table 3
+Enhancer strength,spEnhancer,sequence-profile predictor,0.625,0.620,0.370,released independent test,CapsEnhancer Table 3
+Enhancer strength,iEnhancer-DCSA,dual-scale CNN plus spatial attention,0.966,0.915,0.837,released independent test,CapsEnhancer Table 3
+Enhancer strength,iEnhancer-DCSV,DenseNet plus attention,0.869,0.807,0.661,released independent test,iEnhancer-DCSV
+Enhancer strength,NEPERS,multiview deep forest,0.951,0.890,0.784,released independent test,CapsEnhancer Table 3
+Enhancer strength,CapsEnhancer,FCGR capsule network,0.992,0.950,0.903,released independent test,CapsEnhancer Table 3

@@ -1,23 +1,20 @@
 # Evidence ledgers
 
-Each task directory contains one compressed NumPy archive named `evidence_ledger.npz` with the following arrays:
+Each directory under `ledgers/` contains `expanded_ledger.npz` with the following arrays:
 
 | Array | Shape | Definition |
 | --- | --- | --- |
-| `task_id` | scalar | Stable task identifier |
-| `y_oof` | `(n_train,)` | Labels for the cross-fitted training ledger |
-| `y_eval` | `(n_eval,)` | Labels for the fixed evaluation partition |
-| `oof_scores` | `(n_train, n_sources)` | Out-of-fold source probabilities |
-| `eval_scores` | `(n_eval, n_sources)` | Source probabilities on the fixed evaluation partition |
-| `source_ids` | `(n_sources,)` | Source identifiers linked to `source_metadata.csv` |
+| `y_oof` | `(n_train,)` | Labels aligned to the cross-fitted training scores |
+| `y_test` | `(n_eval,)` | Labels for the fixed evaluation partition |
+| `oof_scores` | `(n_train, n_sources)` | OOF source probabilities |
+| `test_scores` | `(n_eval, n_sources)` | Source probabilities on the evaluation partition |
+| `source_names` | `(n_sources,)` | Stable identifiers from `source_metadata.csv` |
 | `source_families` | `(n_sources,)` | Evidence-family labels |
 
-`dataset_manifest.csv` records primary task definitions, partition protocols, class counts, and source counts. `ledger_manifest.csv` provides the machine-readable primary ledger index. The `auxiliary/` directory contains the separately evaluated 30-source enhancer-recognition and enhancer-strength ledgers; `auxiliary_ledger_manifest.csv` indexes them and `auxiliary_source_metadata.csv` defines their stable source identifiers. They are excluded from the primary ten-task aggregate.
+`ledger_manifest.csv` indexes all 21 run ledgers. Nineteen primary runs represent ten evaluation tasks because Rice 6mA has ten outer test folds. The enhancer-recognition and enhancer-strength ledgers have the `Auxiliary` role and are indexed separately in `auxiliary_ledger_manifest.csv`.
 
-`dataset_sources.csv` lists the upstream benchmark resources. `model_manifest.csv` lists the foundation models and DNA-shape software represented in the ledgers. The repository contains labels and derived source probabilities; pretrained weights and raw benchmark sequences are obtained from the listed upstream resources. The released ledgers define the reproducibility boundary for the reported fusion, comparator, ablation, and robustness analyses.
+`dataset_manifest.csv` records task definitions, released partition protocols, class counts, and source counts. `dataset_sources.csv` and `model_manifest.csv` identify the upstream benchmark and representation resources.
 
-All source probabilities are stored in the same column order for the OOF and evaluation matrices within a task.
+OOF and evaluation matrices use the same source-column order within each task. The loader accepts the public array names above and exposes them through the unified `EvidenceLedger` interface.
 
-The repository MIT License applies to software source code. Benchmark data,
-derived evidence ledgers, pretrained models, and model-derived artifacts remain
-subject to the terms of their upstream resources.
+The MIT License applies to the software. Benchmark data, derived evidence ledgers, pretrained models, and model-derived artifacts retain the terms of their upstream resources.

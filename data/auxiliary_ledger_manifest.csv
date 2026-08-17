@@ -1,3 +1,3 @@
 task_id,task_label,ledger,oof_samples,evaluation_samples,source_count
-enhancer_recognition,Enhancer recognition,auxiliary/enhancer_recognition/evidence_ledger.npz,2968,400,30
-enhancer_strength,Enhancer strength,auxiliary/enhancer_strength/evidence_ledger.npz,1484,200,30
+ienhancer_recognition,Enhancer recognition,ledgers/ienhancer_recognition/expanded_ledger.npz,2968,400,44
+ienhancer_strength,Enhancer strength,ledgers/ienhancer_strength/expanded_ledger.npz,1484,200,44

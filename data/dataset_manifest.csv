@@ -1,11 +1,13 @@
 task_id,task_label,family,study_role,partition_protocol,training_samples,evaluation_samples,training_positive,training_negative,evaluation_positive,evaluation_negative,source_score_columns
-gue_emp_H3,GUE EMP-H3,GUE,Primary,Released train+dev versus test,13468,1497,6912,6556,755,742,53
-gue_human_tf_0,GUE human-TF,GUE,Primary,Released train+dev versus test,33378,1000,16689,16689,500,500,53
-gue_mouse_0,GUE mouse,GUE,Primary,Released train+dev versus test,7288,810,3644,3644,405,405,49
-gue_prom_300_all,GUE promoter-300,GUE,Primary,Released train+dev versus test,53276,5920,26618,26658,2980,2940,53
-gue_prom_core_all,GUE promoter-core,GUE,Primary,Released train+dev versus test,53276,5920,26630,26646,2968,2952,53
-ipromoter_hs_notata,Human non-TATA,iPromoter,Primary,Deterministic stratified 70/15/15; train+dev versus test,44043,7774,22031,22012,3889,3885,53
-ipromoter_hs_tata,Human TATA,iPromoter,Primary,Deterministic stratified 70/15/15; train+dev versus test,4967,878,2489,2478,440,438,53
-ipromoter_mm_notata,Mouse non-TATA,iPromoter,Primary,Deterministic stratified 70/15/15; train+dev versus test,36423,6429,18232,18191,3218,3211,53
-ipromoter_mm_tata,Mouse TATA,iPromoter,Primary,Deterministic stratified 70/15/15; train+dev versus test,5170,914,2622,2548,464,450,53
-snnrice6ma_rice_chen,Rice 6mA,6mA,Primary,Deterministic stratified 70/15/15; train+dev versus test,1495,265,748,747,132,133,53
+gue_emp_H3,GUE EMP-H3,Histone,Primary,Released training partition and fixed test,11971,1497,6150,5821,755,742,44
+gue_human_tf_0,GUE human TF,TF binding,Primary,Released training partition and fixed test,32378,1000,16172,16206,500,500,44
+gue_mouse_0,GUE mouse regulatory,Regulatory,Primary,Released training partition and fixed test,6478,810,3249,3229,405,405,40
+gue_prom_300_all,GUE promoter-300,Promoter,Primary,Released training partition and fixed test,47356,5920,23672,23684,2980,2940,44
+gue_prom_core_all,GUE promoter-core,Promoter,Primary,Released training partition and fixed test,47356,5920,23651,23705,2968,2952,44
+ipromoter_hs_notata,Human non-TATA promoter,Promoter,Primary,Released training partition and independent test,42800,5000,21400,21400,2500,2500,44
+ipromoter_hs_tata,Human TATA promoter,Promoter,Primary,Released training partition and independent test,4958,500,2479,2479,250,250,44
+ipromoter_mm_notata,Mouse non-TATA promoter,Promoter,Primary,Released training partition and independent test,33892,5000,16946,16946,2500,2500,44
+ipromoter_mm_tata,Mouse TATA promoter,Promoter,Primary,Released training partition and independent test,5272,500,2636,2636,250,250,44
+snnrice6ma_rice_chen,Rice 6mA,Methylation,Primary,Ten outer folds with eight fitting one validation and one test fold,1584,176,792,792,88,88,44
+ienhancer_recognition,Enhancer recognition,Enhancer,Auxiliary,Original uncorrected released training and test partitions,2968,400,1484,1484,200,200,44
+ienhancer_strength,Enhancer strength,Enhancer,Auxiliary,Original uncorrected released training and test partitions,1484,200,742,742,100,100,44

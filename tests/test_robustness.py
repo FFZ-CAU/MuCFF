@@ -16,10 +16,10 @@ def test_stress_conditions_include_source_groups_and_random_missingness():
         eval_scores=rng.uniform(0.1, 0.9, size=(10, 4)),
         source_ids=("a", "b", "c", "d"),
         source_families=(
-            "Composition and FCGR",
-            "DNABERT-2",
-            "RC motif grammar",
-            "Cross-fitted meta-evidence",
+            "composition",
+            "foundation_db2",
+            "sequence_grammar_rc",
+            "derived_anchor",
         ),
     )
     conditions = build_stress_conditions(ledger, MuCFFConfig(), repeats=2)

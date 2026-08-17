@@ -1,0 +1,9 @@
+method,model_family,hs_non_tata_auc,hs_tata_auc,mm_non_tata_auc,mm_tata_auc,rice_6ma_auc,protocol
+FCGR ExtraTrees,engineered composition classifier,0.700524,0.870039,0.774259,0.866382,0.696315,identical fixed task partition and OOF source protocol
+DNAshapeR gradient boosting,biophysical shape classifier,0.759003,0.932394,0.813522,0.945182,0.823593,identical fixed task partition and OOF source protocol
+DNABERT-1 mean plus linear head,foundation embedding classifier,0.768649,0.809620,0.813044,0.840455,0.706710,identical fixed task partition and OOF source protocol
+DNABERT-2 plus logistic head,foundation embedding classifier,0.822963,0.816065,0.877552,0.870987,0.621212,identical fixed task partition and OOF source protocol
+Nucleotide Transformer mean plus linear head,foundation embedding classifier,0.746447,0.777013,0.803035,0.795630,0.688369,identical fixed task partition and OOF source protocol
+RC motif-grammar expert,standalone neural sequence model,0.860728,0.929945,0.911601,0.936616,0.734905,identical fixed task partition and OOF source protocol
+RC motif-biophysical expert,standalone neural sequence model,0.871589,0.933569,0.921728,0.957392,0.718871,identical fixed task partition and OOF source protocol
+Position-aware RC biophysical expert,standalone neural sequence model,0.896239,0.980713,0.932896,0.985522,0.728782,identical fixed task partition and OOF source protocol

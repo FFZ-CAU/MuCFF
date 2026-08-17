@@ -1,0 +1,21 @@
+method,model_family,EMP_H3,TF_human_0,TF_mouse_0,promoter_300_all,promoter_core_all,protocol,evidence_source
+DNABERT 3-mer,genomic foundation model,0.7415,0.6795,0.4231,0.9044,0.7092,GUE released train/dev/test; three-seed mean,DNABERT-2 Table 4
+DNABERT 4-mer,genomic foundation model,0.7303,0.6790,0.4942,0.8954,0.6900,GUE released train/dev/test; three-seed mean,DNABERT-2 Table 4
+DNABERT 5-mer,genomic foundation model,0.7340,0.6697,0.4245,0.9016,0.6948,GUE released train/dev/test; three-seed mean,DNABERT-2 Table 4
+DNABERT 6-mer,genomic foundation model,0.7310,0.6684,0.4442,0.9048,0.6890,GUE released train/dev/test; three-seed mean,DNABERT-2 Table 4
+NT-500M-human,genomic foundation model,0.6967,0.6159,0.3104,0.8771,0.6345,GUE released train/dev/test; three-seed mean,DNABERT-2 Table 4
+NT-500M-1000G,genomic foundation model,0.7252,0.6364,0.3926,0.8976,0.6670,GUE released train/dev/test; three-seed mean,DNABERT-2 Table 4
+NT-2.5B-1000G,genomic foundation model,0.7461,0.6631,0.4831,0.9095,0.6739,GUE released train/dev/test; three-seed mean,DNABERT-2 Table 4
+NT-2.5B-multispecies,genomic foundation model,0.7877,0.6664,0.6331,0.9101,0.7033,GUE released train/dev/test; three-seed mean,DNABERT-2 Table 4
+DNABERT-2,genomic foundation model,0.7827,0.7199,0.5676,0.8677,0.6937,GUE released train/dev/test; three-seed mean,DNABERT-2 Table 4
+DNABERT-2 with GUE-domain MLM,genomic foundation model,0.8017,0.6912,0.6423,0.8831,0.6750,GUE released train/dev/test; three-seed mean,DNABERT-2 Table 4
+Enformer,sequence-to-function model,0.7065,0.6942,0.6715,0.8568,0.6094,GUE released train/dev/test; published fine-tuning result,SPACE appendix GUE tables
+SPACE,profile-supervised genomic foundation model,0.7953,0.6902,0.6594,0.9190,0.6818,GUE released train/dev/test; published fine-tuning result,SPACE appendix GUE tables
+Caduceus-Ph-131k,bidirectional state-space genomic model,,0.7069,0.5044,0.8398,0.6409,GUE released train/dev/test; published fine-tuning result,HybriDNA Appendix B
+HyenaDNA-160k,long-convolution genomic model,,0.6447,0.5625,0.8304,0.6618,GUE released train/dev/test; published fine-tuning result,HybriDNA Appendix B
+HybriDNA-300M,hybrid Transformer-Mamba genomic model,,0.6812,0.6857,0.8894,0.6840,GUE released train/dev/test; published fine-tuning result,HybriDNA Appendix B
+HybriDNA-300M (echo),hybrid Transformer-Mamba genomic model,,0.6764,0.6866,0.8881,0.6837,GUE released train/dev/test; published fine-tuning result,HybriDNA Appendix B
+HybriDNA-3B,hybrid Transformer-Mamba genomic model,,0.6988,0.7096,0.8948,0.6898,GUE released train/dev/test; published fine-tuning result,HybriDNA Appendix B
+HybriDNA-3B (echo),hybrid Transformer-Mamba genomic model,,0.6902,0.7102,0.8930,0.6890,GUE released train/dev/test; published fine-tuning result,HybriDNA Appendix B
+HybriDNA-7B,hybrid Transformer-Mamba genomic model,,0.7000,0.7168,0.8828,0.6650,GUE released train/dev/test; published fine-tuning result,HybriDNA Appendix B
+HybriDNA-7B (echo),hybrid Transformer-Mamba genomic model,,0.7146,0.7291,0.9020,0.6710,GUE released train/dev/test; published fine-tuning result,HybriDNA Appendix B

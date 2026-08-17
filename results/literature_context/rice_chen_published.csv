@@ -1,0 +1,17 @@
+method,model_family,auc,accuracy,mcc,validation_protocol,evidence_source
+i6mA-Pred,handcrafted features plus SVM,0.890,,0.660,Chen benchmark cross-validation,SNNRice6mA comparison
+PseDNC,pseudo-dinucleotide composition plus SVM,0.636,0.646,0.290,jackknife test,I-DNAN6mA Table 5
+MM-6mAPred,Markov-model predictor,,0.895,0.790,Chen benchmark cross-validation,SNNRice6mA comparison
+iDNA6mA,one-hot CNN,0.930,0.866,0.730,Chen benchmark cross-validation,SNNRice6mA comparison
+SDM6A,ensemble feature predictor,0.940,,0.760,Chen benchmark cross-validation,SNNRice6mA comparison
+iDNA6mA-Rice,binary encoding plus random forest,0.910,,0.670,Chen benchmark cross-validation,SNNRice6mA comparison
+i6mA-DNCP,optimized dinucleotide features,0.926,0.867,0.734,jackknife test,I-DNAN6mA Table 5
+SVM-based dinucleotide model,dinucleotide features plus SVM,0.915,0.851,0.701,jackknife test,I-DNAN6mA Table 5
+SNNRice6mA,one-hot Siamese CNN,0.970,0.932,0.870,10-fold cross-validation,SNNRice6mA Table 2
+SNNRice6mA-feature,learned representation plus classical head,0.980,0.917,0.830,10-fold cross-validation,SNNRice6mA Table 2
+6mA-RicePred,multifeature fusion predictor,0.945,0.873,0.746,Chen dataset 1 cross-validation,6mA-RicePred Table 4 and Figure 6
+i6mA-DNC,dinucleotide CNN,,0.885,0.770,k-fold cross-validation,i6mA-DNC Table 3
+iRicem6A-CNN 1-mer,one-hot CNN,0.975,0.934,0.868,5-fold cross-validation,iRicem6A-CNN Figure 3
+iRicem6A-CNN 2-mer,dinucleotide one-hot CNN,0.979,0.938,0.877,5-fold cross-validation,iRicem6A-CNN Figure 3
+6mAPred-MSFF,multiscale feature-fusion network,0.976,0.930,0.862,reported Chen benchmark protocol,6mAPred-MSFF Table 2
+I-DNAN6mA,base-pairing-map deep network,0.947,0.882,0.763,jackknife test,I-DNAN6mA Table 5

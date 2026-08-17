@@ -13,45 +13,46 @@ from sklearn.model_selection import StratifiedKFold
 from .fusion import (
     MuCFFConfig,
     crossfit_mucff,
-    make_sparse_decision,
+    logit_blend,
+    make_l2_decision,
+    make_xgboost_decision,
     predict_probability,
     stable_seed,
 )
 from .ledger import EvidenceLedger
 from .metrics import binary_metrics, select_mcc_threshold
-from .representation import clip_prob, fit_routing_state, mucff_state, select_anchor
+from .representation import aligned_state, clip_prob, fit_routing_state, mucff_state, select_anchor
 
 
 SOURCE_GROUPS: dict[str, frozenset[str]] = {
     "engineered_descriptors": frozenset(
         {
-            "Composition and FCGR",
-            "Motif and position",
-            "Physicochemical",
-            "DNA shape",
+            "composition",
+            "motif_position",
+            "physicochemical",
+            "dna_shape",
         }
     ),
     "foundation_evidence": frozenset(
         {
-            "DNABERT-2",
-            "DNABERT-1",
-            "Nucleotide Transformer",
-            "Cross-foundation interaction",
-            "Pre-classifier local fusion",
+            "foundation_db1",
+            "foundation_db2",
+            "foundation_nt",
+            "foundation_cross",
+            "foundation_residual",
         }
     ),
     "sequence_grammar": frozenset(
         {
-            "RC motif grammar",
-            "RC biophysical grammar",
-            "Position-aware biophysical grammar",
+            "sequence_grammar_rc",
+            "sequence_grammar_biophysical",
+            "sequence_grammar_position",
         }
     ),
     "derived_evidence": frozenset(
         {
-            "Deep feature interaction",
-            "Score-residual evidence",
-            "Cross-fitted meta-evidence",
+            "derived_anchor",
+            "preclassifier_local",
         }
     ),
 }
@@ -103,7 +104,13 @@ def build_stress_conditions(
         missing_count = max(1, int(round(fraction * source_count)))
         for replicate in range(repeats):
             rng = np.random.default_rng(
-                stable_seed(config.seed_base, ledger.task_id, "missing", fraction, replicate)
+                stable_seed(
+                    config.seed_base,
+                    ledger.task_id,
+                    "deployment_missing",
+                    fraction,
+                    replicate + 1,
+                )
             )
             indices = tuple(sorted(rng.choice(source_count, missing_count, replace=False).tolist()))
             conditions.append(
@@ -178,8 +185,10 @@ def _predict_stress_conditions(
             config.seed_base, ledger.task_id, "fusion_benchmark_common_cv"
         ),
     )
-    oof_probability = np.zeros(ledger.y_oof.size, dtype=np.float32)
-    fold_predictions = {condition: [] for condition in conditions}
+    routed_oof = np.zeros(ledger.y_oof.size, dtype=np.float32)
+    nonlinear_oof = np.zeros(ledger.y_oof.size, dtype=np.float32)
+    routed_predictions = {condition: [] for condition in conditions}
+    nonlinear_predictions = {condition: [] for condition in conditions}
     for fold_index, (train_index, validation_index) in enumerate(
         splitter.split(ledger.oof_scores, ledger.y_oof)
     ):
@@ -201,12 +210,31 @@ def _predict_stress_conditions(
             config.routing_temperature,
             config.probability_epsilon,
         )
-        model = clone(make_sparse_decision(config))
+        routed_model = clone(make_l2_decision(config))
         with warnings.catch_warnings():
             warnings.simplefilter("ignore")
-            model.fit(train_state, ledger.y_oof[train_index])
-        oof_probability[validation_index] = predict_probability(
-            model, validation_state, config.probability_epsilon
+            routed_model.fit(train_state, ledger.y_oof[train_index])
+        routed_oof[validation_index] = predict_probability(
+            routed_model, validation_state, config.probability_epsilon
+        )
+        nonlinear_model = clone(make_xgboost_decision(config))
+        nonlinear_model.set_params(
+            random_state=stable_seed(
+                config.seed_base, ledger.task_id, "xgboost_stacking", fold_index
+            )
+        )
+        nonlinear_model.fit(
+            aligned_state(
+                ledger.oof_scores[train_index], config.probability_epsilon
+            ),
+            ledger.y_oof[train_index],
+        )
+        nonlinear_oof[validation_index] = predict_probability(
+            nonlinear_model,
+            aligned_state(
+                ledger.oof_scores[validation_index], config.probability_epsilon
+            ),
+            config.probability_epsilon,
         )
 
         neutral_values = np.median(ledger.oof_scores[train_index], axis=0)
@@ -219,21 +247,54 @@ def _predict_stress_conditions(
                 stable_seed(
                     config.seed_base,
                     ledger.task_id,
-                    condition.name,
-                    condition.replicate,
+                    "deployment_noise",
                     fold_index,
+                    condition.replicate,
                 ),
                 config,
             )
-            fold_predictions[condition].append(
-                predict_probability(model, state, config.probability_epsilon)
+            altered = _alter_scores(
+                ledger.eval_scores,
+                condition,
+                neutral_values,
+                stable_seed(
+                    config.seed_base,
+                    ledger.task_id,
+                    "deployment_noise",
+                    fold_index,
+                    condition.replicate,
+                ),
+                config.probability_epsilon,
+            )
+            routed_predictions[condition].append(
+                predict_probability(routed_model, state, config.probability_epsilon)
+            )
+            nonlinear_predictions[condition].append(
+                predict_probability(
+                    nonlinear_model,
+                    aligned_state(altered, config.probability_epsilon),
+                    config.probability_epsilon,
+                )
             )
 
     averaged = {
-        condition: np.mean(predictions, axis=0)
-        for condition, predictions in fold_predictions.items()
+        condition: logit_blend(
+            np.mean(routed_predictions[condition], axis=0),
+            np.mean(nonlinear_predictions[condition], axis=0),
+            config.dual_linear_weight,
+            config.probability_epsilon,
+        )
+        for condition in conditions
     }
-    return oof_probability, averaged
+    return (
+        logit_blend(
+            routed_oof,
+            nonlinear_oof,
+            config.dual_linear_weight,
+            config.probability_epsilon,
+        ),
+        averaged,
+    )
 
 
 def _metric_row(

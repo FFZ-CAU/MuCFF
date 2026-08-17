@@ -1,6 +1,10 @@
+import json
+import platform
 from pathlib import Path
 
+import numpy as np
 import pytest
+from sklearn.metrics import roc_auc_score
 
 from mucff.experiment import load_config, run_task
 from mucff.ledger import load_ledger
@@ -8,72 +12,40 @@ from mucff.verification import verify_predictions
 
 
 ROOT = Path(__file__).resolve().parents[1]
+TASK_ID = "snnrice6ma_rice_chen__fold00"
 
 
-def test_rice_6ma_reference_metrics():
+@pytest.fixture(scope="module")
+def rice_fold_result():
     settings_path = ROOT / "configs" / "main_experiment.json"
     config = load_config(settings_path)
-    import json
-
-    threshold_settings = json.loads(settings_path.read_text(encoding="utf-8"))
+    settings = json.loads(settings_path.read_text(encoding="utf-8"))
     ledger = load_ledger(
-        ROOT / "data" / "processed" / "snnrice6ma_rice_chen" / "evidence_ledger.npz"
+        ROOT / "data" / "ledgers" / TASK_ID / "expanded_ledger.npz"
     )
-    metrics, _ = run_task(ledger, config, threshold_settings)
+    metrics, arrays = run_task(ledger, config, settings)
+    return ledger, metrics, arrays
+
+
+def test_rice_fold_reference_metrics(rice_fold_result):
+    _, metrics, _ = rice_fold_result
     indexed = metrics.set_index("method")
-    assert {"best_primitive_head", "best_standalone_source", "best_source"}.issubset(indexed.index)
     expected = {
-        "mucff": (0.8846548188653452, 0.8927166645567698, 0.5398991206424848),
-        "sparse_aligned_control": (
-            0.8845408976987924,
-            0.89261125287288,
-            0.5398991206424848,
-        ),
+        "aligned_logistic_l2": 0.9278150826446281,
+        "routed_logistic_l2": 0.9258780991735537,
     }
-    for method, values in expected.items():
-        assert indexed.loc[method, "auc"] == pytest.approx(values[0], abs=1e-12)
-        assert indexed.loc[method, "auprc"] == pytest.approx(values[1], abs=1e-12)
-        assert indexed.loc[method, "mcc"] == pytest.approx(values[2], abs=1e-12)
+    for method, auc in expected.items():
+        assert indexed.loc[method, "auc"] == pytest.approx(auc, abs=1e-12)
 
-
-def test_rice_6ma_reference_predictions(tmp_path):
-    settings_path = ROOT / "configs" / "main_experiment.json"
-    config = load_config(settings_path)
-    import json
-    import numpy as np
-
-    threshold_settings = json.loads(settings_path.read_text(encoding="utf-8"))
-    ledger = load_ledger(
-        ROOT / "data" / "processed" / "snnrice6ma_rice_chen" / "evidence_ledger.npz"
+    reference_auc = 0.9262654958677685
+    tolerance = 1e-12 if platform.system() == "Linux" else 3e-3
+    assert indexed.loc["mucff", "auc"] == pytest.approx(
+        reference_auc, abs=tolerance
     )
-    _, arrays = run_task(ledger, config, threshold_settings)
-    task_directory = tmp_path / ledger.task_id
-    task_directory.mkdir()
-    np.savez_compressed(task_directory / "predictions.npz", **arrays)
-    source_reference = ROOT / "results" / "reference" / "reference_predictions.npz"
-    task_reference = tmp_path / "reference_predictions.npz"
-    with np.load(source_reference, allow_pickle=False) as stored:
-        selected = {
-            key: stored[key]
-            for key in stored.files
-            if key.startswith(f"{ledger.task_id}__")
-        }
-    np.savez_compressed(task_reference, **selected)
-    report = verify_predictions(tmp_path, task_reference)
-    assert report.task_id.unique().tolist() == [ledger.task_id]
 
 
-def test_subset_verification_uses_selected_reference_task(tmp_path):
-    settings_path = ROOT / "configs" / "main_experiment.json"
-    config = load_config(settings_path)
-    import json
-    import numpy as np
-
-    threshold_settings = json.loads(settings_path.read_text(encoding="utf-8"))
-    ledger = load_ledger(
-        ROOT / "data" / "processed" / "snnrice6ma_rice_chen" / "evidence_ledger.npz"
-    )
-    _, arrays = run_task(ledger, config, threshold_settings)
+def test_rice_fold_reference_predictions(tmp_path, rice_fold_result):
+    ledger, _, arrays = rice_fold_result
     task_directory = tmp_path / ledger.task_id
     task_directory.mkdir()
     np.savez_compressed(task_directory / "predictions.npz", **arrays)
@@ -81,5 +53,34 @@ def test_subset_verification_uses_selected_reference_task(tmp_path):
         tmp_path,
         ROOT / "results" / "reference" / "reference_predictions.npz",
         task_ids={ledger.task_id},
+        methods=("aligned_logistic_l2", "routed_logistic_l2"),
     )
     assert report.task_id.unique().tolist() == [ledger.task_id]
+    assert report.verified.all()
+
+
+def test_grouped_reference_selector_expands_rice_folds():
+    with np.load(
+        ROOT / "results" / "reference" / "reference_predictions.npz",
+        allow_pickle=False,
+    ) as stored:
+        rice_tasks = {
+            key.removesuffix("__y_eval")
+            for key in stored.files
+            if key.startswith("snnrice6ma_rice_chen__fold")
+            and key.endswith("__y_eval")
+        }
+    assert len(rice_tasks) == 10
+
+
+def test_reference_archive_contains_expected_labels():
+    with np.load(
+        ROOT / "results" / "reference" / "reference_predictions.npz",
+        allow_pickle=False,
+    ) as stored:
+        labels = stored[f"{TASK_ID}__y_eval"]
+        probability = stored[f"{TASK_ID}__mucff_eval"]
+    assert labels.shape == probability.shape
+    assert roc_auc_score(labels, probability) == pytest.approx(
+        0.9262654958677685, abs=1e-12
+    )

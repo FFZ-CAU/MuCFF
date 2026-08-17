@@ -1,3 +1,0 @@
-score_representation,mean_auc,mean_auprc,mean_mcc,delta_auc_vs_raw,ci95_low_vs_raw,ci95_high_vs_raw,wtl_vs_raw,p_vs_raw
-Raw source probabilities,0.9428460988103572,0.9447443698762884,0.7528115991243026,0.0,0.0,0.0,0/10/0,1.0
-Probability plus rank plus logit plus global summaries,0.9435262731613566,0.9446614485664954,0.7548019992876921,0.0006801743509993963,0.00013496518092844388,0.0012007289000319917,8/0/2,0.0322265625

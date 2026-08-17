@@ -1,56 +1,47 @@
-source_id,source_tier,evidence,prediction_head,source_family
-P01,Primitive feature head,DNAshapeR MGW/HelT/ProT/Roll,Histogram gradient boosting,DNA shape
-P02,Primitive feature head,DNAshapeR five-track profile,Logistic (C=0.3),DNA shape
-P03,Primitive feature head,DNABERT-1 mean embedding,Linear head,DNABERT-1
-P04,Primitive feature head,DNAshapeR MGW/HelT/ProT/Roll,Logistic (C=1),DNA shape
-P05,Primitive feature head,Order-4 FCGR,ExtraTrees (300),Composition and FCGR
-P06,Primitive feature head,Order-4 FCGR,Scaled logistic L2 (C=1),Composition and FCGR
-P07,Primitive feature head,DNABERT-2 embedding,Scaled logistic L2 (C=0.3),DNABERT-2
-P08,Primitive feature head,Basic motif/position descriptors,ExtraTrees (300),Motif and position
-P09,Primitive feature head,DNABERT-2 embedding,Scaled logistic L2 (C=1),DNABERT-2
-P10,Primitive feature head,Nucleotide Transformer CLS embedding,Linear head,Nucleotide Transformer
-P11,Primitive feature head,Basic motif/position descriptors,Scaled logistic L2 (C=1),Motif and position
-P12,Primitive feature head,CKSNAP (gap 0--5),Scaled logistic L2 (C=1),Physicochemical
-P13,Primitive feature head,Dinucleotide autocorrelation,ExtraTrees (300),Physicochemical
-P14,Primitive feature head,Dinucleotide autocorrelation,Scaled logistic L2 (C=1),Physicochemical
-P15,Primitive feature head,Z-curve descriptors,ExtraTrees (300),Physicochemical
-P16,Primitive feature head,CKSNAP (gap 0--5),ExtraTrees (300),Physicochemical
-P17,Primitive feature head,Nucleotide Transformer mean embedding,Linear head,Nucleotide Transformer
-P18,Primitive feature head,4--6-mer composition,Logistic L2 (C=1),Composition and FCGR
-P19,Primitive feature head,4--6-mer composition,Logistic L2 (C=0.3),Composition and FCGR
-P20,Primitive feature head,DNAshapeR EP,Logistic (C=1),DNA shape
-P21,Primitive feature head,DNABERT-1 CLS embedding,Linear head,DNABERT-1
-P22,Primitive feature head,Z-curve descriptors,Scaled logistic L2 (C=1),Physicochemical
-P23,Primitive feature head,1--3-mer composition,Logistic L2 (C=1),Composition and FCGR
-P24,Primitive feature head,1--3-mer composition,Logistic L2 (C=0.3),Composition and FCGR
-P25,Primitive feature head,EIIP autocorrelation,ExtraTrees (300),Physicochemical
-P26,Primitive feature head,EIIP autocorrelation,Scaled logistic L2 (C=1),Physicochemical
-P27,Primitive feature head,Promoter motif/position descriptors,ExtraTrees (300),Motif and position
-P28,Primitive feature head,Promoter motif/position descriptors,Scaled logistic L2 (C=1),Motif and position
-P29,Primitive feature head,Center-context positional descriptors,Scaled logistic L2 (C=1),Motif and position
-P30,Primitive feature head,Center-context positional descriptors,ExtraTrees (300),Motif and position
-E01,Standalone sequence expert,Position-aware RC biophysical grammar,Neural expert,Position-aware biophysical grammar
-E02,Standalone sequence expert,RC motif and biophysical grammar,Neural expert,RC biophysical grammar
-E03,Standalone sequence expert,"RC multiscale motif grammar, initialization 3",Neural expert,RC motif grammar
-E04,Standalone sequence expert,"RC multiscale motif grammar, initialization 2",Neural expert,RC motif grammar
-E05,Standalone sequence expert,"RC multiscale motif grammar, initialization 1",Neural expert,RC motif grammar
-D01,Derived evidence channel,Cross-fitted dual meta-evidence channel,Composite predictor,Meta-evidence
-D02,Derived evidence channel,Integrated score-residual evidence channel,Integrated residual predictor,Score-residual evidence
-D03,Derived evidence channel,Local three-foundation interaction branch,Composite predictor,Pre-classifier local fusion
-D04,Derived evidence channel,Mean-pooled three-foundation interaction branch,Composite predictor,Pre-classifier local fusion
-D05,Derived evidence channel,Feature-complementarity view-token channel,View-token expert,Deep feature interaction
-D06,Derived evidence channel,Local DNABERT-2 and DNABERT-1 interaction branch,Composite predictor,Pre-classifier local fusion
-D07,Derived evidence channel,Local DNABERT-2 and Nucleotide Transformer interaction branch,Composite predictor,Pre-classifier local fusion
-D08,Derived evidence channel,Local DNABERT-2 cross-feature branch,Composite predictor,Pre-classifier local fusion
-D09,Derived evidence channel,Cross-foundation attention interaction A,Cross-attention interaction head,Cross-foundation interaction
-D10,Derived evidence channel,Cross-foundation attention interaction B,Cross-attention interaction head,Cross-foundation interaction
-D11,Derived evidence channel,Cross-foundation attention interaction C,Cross-attention interaction head,Cross-foundation interaction
-D12,Derived evidence channel,DNABERT-1 pooling interaction A,Pooling-interaction neural head,DNABERT-1
-D13,Derived evidence channel,DNABERT-1 pooling interaction B,Pooling-interaction neural head,DNABERT-1
-D14,Derived evidence channel,DNABERT-1 pooling interaction C,Pooling-interaction neural head,DNABERT-1
-D15,Derived evidence channel,DNABERT-2 pooling interaction A,Pooling-interaction neural head,DNABERT-2
-D16,Derived evidence channel,DNABERT-2 pooling interaction B,Pooling-interaction neural head,DNABERT-2
-D17,Derived evidence channel,DNABERT-2 pooling interaction C,Pooling-interaction neural head,DNABERT-2
-D18,Derived evidence channel,Nucleotide Transformer pooling interaction A,Pooling-interaction neural head,Nucleotide Transformer
-D19,Derived evidence channel,Nucleotide Transformer pooling interaction B,Pooling-interaction neural head,Nucleotide Transformer
-D20,Derived evidence channel,Nucleotide Transformer pooling interaction C,Pooling-interaction neural head,Nucleotide Transformer
+source_name,source_tier,evidence,prediction_head,source_family
+kmer13__logreg_l2_c1,Primitive,1-3-mer composition,Logistic L2 C=1,composition
+kmer13__logreg_l2_c03,Primitive,1-3-mer composition,Logistic L2 C=0.3,composition
+kmer46__logreg_l2_c1,Primitive,4-6-mer composition,Logistic L2 C=1,composition
+kmer46__logreg_l2_c03,Primitive,4-6-mer composition,Logistic L2 C=0.3,composition
+fcgr4__scaled_logreg_l2_c1,Primitive,Order-4 FCGR,Scaled logistic L2 C=1,composition
+fcgr4__extratrees_300,Primitive,Order-4 FCGR,ExtraTrees 300,composition
+basicpos__scaled_logreg_l2_c1,Primitive,Basic motif and position descriptors,Scaled logistic L2 C=1,motif_position
+basicpos__extratrees_300,Primitive,Basic motif and position descriptors,ExtraTrees 300,motif_position
+promoter_motif__scaled_logreg_l2_c1,Primitive,Promoter motif and position descriptors,Scaled logistic L2 C=1,motif_position
+promoter_motif__extratrees_300,Primitive,Promoter motif and position descriptors,ExtraTrees 300,motif_position
+cksnap5__scaled_logreg_l2_c1,Primitive,CKSNAP lag 5,Scaled logistic L2 C=1,physicochemical
+cksnap5__extratrees_300,Primitive,CKSNAP lag 5,ExtraTrees 300,physicochemical
+zcurve12__scaled_logreg_l2_c1,Primitive,Z-curve descriptors,Scaled logistic L2 C=1,physicochemical
+zcurve12__extratrees_300,Primitive,Z-curve descriptors,ExtraTrees 300,physicochemical
+eiip_auto__scaled_logreg_l2_c1,Primitive,EIIP autocorrelation,Scaled logistic L2 C=1,physicochemical
+eiip_auto__extratrees_300,Primitive,EIIP autocorrelation,ExtraTrees 300,physicochemical
+dinuc_auto__scaled_logreg_l2_c1,Primitive,Dinucleotide autocorrelation,Scaled logistic L2 C=1,physicochemical
+dinuc_auto__extratrees_300,Primitive,Dinucleotide autocorrelation,ExtraTrees 300,physicochemical
+center_context__scaled_logreg_l2_c1,Primitive,Centered sequence context,Scaled logistic L2 C=1,motif_position
+center_context__extratrees_300,Primitive,Centered sequence context,ExtraTrees 300,motif_position
+dnabert2__scaled_logreg_l2_c1,Primitive,DNABERT-2 embedding,Scaled logistic L2 C=1,foundation_db2
+dnabert2__scaled_logreg_l2_c03,Primitive,DNABERT-2 embedding,Scaled logistic L2 C=0.3,foundation_db2
+dnabert1_6mer_mean__linear,Primitive,DNABERT-1 mean embedding,Linear head,foundation_db1
+dnabert1_6mer_cls__linear,Primitive,DNABERT-1 CLS embedding,Linear head,foundation_db1
+nt_500m_human_ref_mean__linear,Primitive,Nucleotide Transformer mean embedding,Linear head,foundation_nt
+nt_500m_human_ref_cls__linear,Primitive,Nucleotide Transformer CLS embedding,Linear head,foundation_nt
+dnashaper_shape4__logreg_c1,Primitive,DNAshapeR four-track profile,Logistic L2 C=1,dna_shape
+dnashaper_shape4__histgb,Primitive,DNAshapeR four-track profile,Histogram gradient boosting,dna_shape
+dnashaper_ep__logreg_c1,Primitive,DNAshapeR electrostatic-potential profile,Logistic L2 C=1,dna_shape
+dnashaper_all5__logreg_c03,Primitive,DNAshapeR five-track profile,Logistic L2 C=0.3,dna_shape
+dnabert1_6mer__pool_interaction,Foundation interaction,DNABERT-1 pooling interaction,Interaction head,foundation_db1
+nt_500m_human_ref__pool_interaction,Foundation interaction,Nucleotide Transformer pooling interaction,Interaction head,foundation_nt
+dnabert2__pool_interaction,Foundation interaction,DNABERT-2 pooling interaction,Interaction head,foundation_db2
+cross_foundation__attention_interaction,Foundation interaction,Cross-foundation attention interaction,Interaction head,foundation_cross
+cross_foundation__anchor_residual,Foundation interaction,Cross-foundation anchor-relative interaction,Residual head,foundation_residual
+aligned_score_anchor,Local or derived,Aligned evidence anchor,Regularized meta-head,derived_anchor
+local_cross,Local or derived,Local cross-foundation evidence,Local fusion head,preclassifier_local
+local_cross_db1,Local or derived,Local DNABERT-1 interaction,Local fusion head,preclassifier_local
+local_cross_db1_nt,Local or derived,Local DNABERT-1 and Nucleotide Transformer interaction,Local fusion head,preclassifier_local
+local_cross_nt,Local or derived,Local Nucleotide Transformer interaction,Local fusion head,preclassifier_local
+local_cross_db1_nt_mean,Local or derived,Local cross-foundation mean interaction,Local fusion head,preclassifier_local
+rc_multiscale_seed0,Sequence grammar,Reverse-complement multiscale grammar expert,Neural expert,sequence_grammar_rc
+rc_multiscale_seed1,Sequence grammar,Reverse-complement multiscale grammar expert,Neural expert,sequence_grammar_rc
+rc_multiscale_seed2,Sequence grammar,Reverse-complement multiscale grammar expert,Neural expert,sequence_grammar_rc
+rc_multiscale_biophysical_seed3,Sequence grammar,Reverse-complement biophysical grammar expert,Neural expert,sequence_grammar_biophysical
+rc_multiscale_biophysical_position_seed4,Sequence grammar,Reverse-complement position-aware grammar expert,Neural expert,sequence_grammar_position

@@ -1,0 +1,11 @@
+task,method,model_family,auc,auprc,accuracy,mcc,protocol,evidence_source
+Human TATA,iPro-EP,capsule-based task model,0.8863,0.8684,0.8080,0.6170,iPromoter-SeqVec independent test,iPromoter-SeqVec Table 1 and released predictions
+Human TATA,DeePromoter,CNN-LSTM task model,,,0.6680,0.4030,iPromoter-SeqVec independent test,iPromoter-SeqVec Table 1 and released predictions
+Human TATA,iPromoter-SeqVec,triplet embedding plus BiLSTM,0.9891,0.9900,0.9440,0.8915,iPromoter-SeqVec independent test,iPromoter-SeqVec Table 1 and released predictions
+Human non-TATA,iPro-EP,capsule-based task model,0.7257,0.7447,0.6454,0.2954,iPromoter-SeqVec independent test,iPromoter-SeqVec Table 1 and released predictions
+Human non-TATA,DeePromoter,CNN-LSTM task model,,,0.5128,0.0411,iPromoter-SeqVec independent test,iPromoter-SeqVec Table 1 and released predictions
+Human non-TATA,iPromoter-SeqVec,triplet embedding plus BiLSTM,0.8559,0.8651,0.7772,0.5625,iPromoter-SeqVec independent test,iPromoter-SeqVec Table 1 and released predictions
+Mouse TATA,DeePromoter,CNN-LSTM task model,,,0.5900,0.2078,iPromoter-SeqVec independent test,iPromoter-SeqVec Table 1 and released predictions
+Mouse TATA,iPromoter-SeqVec,triplet embedding plus BiLSTM,0.9905,0.9900,0.9280,0.8600,iPromoter-SeqVec independent test,iPromoter-SeqVec Table 1 and released predictions
+Mouse non-TATA,DeePromoter,CNN-LSTM task model,,,0.6374,0.3113,iPromoter-SeqVec independent test,iPromoter-SeqVec Table 1 and released predictions
+Mouse non-TATA,iPromoter-SeqVec,triplet embedding plus BiLSTM,0.9067,0.9150,0.8348,0.6710,iPromoter-SeqVec independent test,iPromoter-SeqVec Table 1 and released predictions
