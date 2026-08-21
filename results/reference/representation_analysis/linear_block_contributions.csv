@@ -1,0 +1,81 @@
+evaluation_task,task_label,block,n_coordinates,mean_abs_contribution,contribution_share
+gue_emp_H3,GUE EMP-H3,Absolute probability residual,53,0.005494975484907627,0.06813368026723847
+gue_emp_H3,GUE EMP-H3,Cross-source summary,5,0.011347532272338867,0.140701107364213
+gue_emp_H3,GUE EMP-H3,Logit,53,0.013246607035398483,0.1642482465762564
+gue_emp_H3,GUE EMP-H3,Logit residual,53,0.003098847344517708,0.038423442424493325
+gue_emp_H3,GUE EMP-H3,Probability,53,0.002839992055669427,0.03521382601504561
+gue_emp_H3,GUE EMP-H3,Probability residual,53,0.001622520387172699,0.020118067057865868
+gue_emp_H3,GUE EMP-H3,Rank,53,0.03296229988336563,0.4087084295998128
+gue_emp_H3,GUE EMP-H3,Rank residual,53,0.010037139989435673,0.12445320069507455
+gue_human_tf_0,GUE human TF,Absolute probability residual,53,0.007479847874492407,0.1207746801801276
+gue_human_tf_0,GUE human TF,Cross-source summary,5,0.003731893142685294,0.06025766945224325
+gue_human_tf_0,GUE human TF,Logit,53,0.022787168622016907,0.3679370287622986
+gue_human_tf_0,GUE human TF,Logit residual,53,0.008815512992441654,0.14234123208797905
+gue_human_tf_0,GUE human TF,Probability,53,0.005003109108656645,0.08078358178444836
+gue_human_tf_0,GUE human TF,Probability residual,53,0.0021046139299869537,0.0339825192386102
+gue_human_tf_0,GUE human TF,Rank,53,0.005755689460784197,0.092935252896372
+gue_human_tf_0,GUE human TF,Rank residual,53,0.006254416424781084,0.10098803559792095
+gue_mouse_0,GUE mouse,Absolute probability residual,49,0.005820040125399828,0.09069732187000176
+gue_mouse_0,GUE mouse,Cross-source summary,5,0.0,0.0
+gue_mouse_0,GUE mouse,Logit,49,0.02156621403992176,0.3360797888247825
+gue_mouse_0,GUE mouse,Logit residual,49,0.011678919196128845,0.1819998952932084
+gue_mouse_0,GUE mouse,Probability,49,0.0068299476988613605,0.10643534261825228
+gue_mouse_0,GUE mouse,Probability residual,49,0.0021523653995245695,0.033541654905536226
+gue_mouse_0,GUE mouse,Rank,49,0.010267337784171104,0.1600023401376505
+gue_mouse_0,GUE mouse,Rank residual,49,0.005855098366737366,0.09124365635056832
+gue_prom_300_all,GUE promoter-300,Absolute probability residual,53,0.010215070098638535,0.07455602515668054
+gue_prom_300_all,GUE promoter-300,Cross-source summary,5,0.014560897834599018,0.10627461728382155
+gue_prom_300_all,GUE promoter-300,Logit,53,0.026154078543186188,0.19088896297201882
+gue_prom_300_all,GUE promoter-300,Logit residual,53,0.014230013824999332,0.10385961706302567
+gue_prom_300_all,GUE promoter-300,Probability,53,0.014090110547840595,0.1028385146965584
+gue_prom_300_all,GUE promoter-300,Probability residual,53,0.004203723277896643,0.03068142415394265
+gue_prom_300_all,GUE promoter-300,Rank,53,0.03090507537126541,0.2255647347105597
+gue_prom_300_all,GUE promoter-300,Rank residual,53,0.02265303023159504,0.16533610396339266
+gue_prom_core_all,GUE promoter-core,Absolute probability residual,53,0.005461280699819326,0.07876050740858628
+gue_prom_core_all,GUE promoter-core,Cross-source summary,5,0.0033215214498341084,0.04790171557490024
+gue_prom_core_all,GUE promoter-core,Logit,53,0.02296605333685875,0.3312076623425512
+gue_prom_core_all,GUE promoter-core,Logit residual,53,0.0092170974239707,0.13292546379649042
+gue_prom_core_all,GUE promoter-core,Probability,53,0.0007878181058913469,0.011361612262070064
+gue_prom_core_all,GUE promoter-core,Probability residual,53,0.004390894901007414,0.06332381164596779
+gue_prom_core_all,GUE promoter-core,Rank,53,0.013309537433087826,0.1919450728174894
+gue_prom_core_all,GUE promoter-core,Rank residual,53,0.009886140935122967,0.1425741541519446
+ipromoter_hs_notata,Human non-TATA,Absolute probability residual,53,0.01249146368354559,0.09763767840163318
+ipromoter_hs_notata,Human non-TATA,Cross-source summary,5,0.024591811001300812,0.19221825357596736
+ipromoter_hs_notata,Human non-TATA,Logit,53,0.03351122885942459,0.261935564086859
+ipromoter_hs_notata,Human non-TATA,Logit residual,53,0.02178683876991272,0.17029360298321583
+ipromoter_hs_notata,Human non-TATA,Probability,53,0.005297222174704075,0.041404953672246635
+ipromoter_hs_notata,Human non-TATA,Probability residual,53,0.004887893795967102,0.03820549893929748
+ipromoter_hs_notata,Human non-TATA,Rank,53,0.014552002772688866,0.11374357743929187
+ipromoter_hs_notata,Human non-TATA,Rank residual,53,0.01081845723092556,0.08456087090148869
+ipromoter_hs_tata,Human TATA,Absolute probability residual,53,0.008360126987099648,0.09062597124570078
+ipromoter_hs_tata,Human TATA,Cross-source summary,5,0.0,0.0
+ipromoter_hs_tata,Human TATA,Logit,53,0.02262180484831333,0.24522630324546554
+ipromoter_hs_tata,Human TATA,Logit residual,53,0.015537632629275322,0.16843201664996235
+ipromoter_hs_tata,Human TATA,Probability,53,0.018670963123440742,0.2023981417705123
+ipromoter_hs_tata,Human TATA,Probability residual,53,0.005614052526652813,0.06085780319334607
+ipromoter_hs_tata,Human TATA,Rank,53,0.015145191922783852,0.16417785636782564
+ipromoter_hs_tata,Human TATA,Rank residual,53,0.0062989164143800735,0.06828190752718731
+ipromoter_mm_notata,Mouse non-TATA,Absolute probability residual,53,0.007676651701331139,0.06906418208475598
+ipromoter_mm_notata,Mouse non-TATA,Cross-source summary,5,0.012612629681825638,0.11347146995898713
+ipromoter_mm_notata,Mouse non-TATA,Logit,53,0.026925381273031235,0.24223834912552503
+ipromoter_mm_notata,Mouse non-TATA,Logit residual,53,0.018851052969694138,0.16959640810101878
+ipromoter_mm_notata,Mouse non-TATA,Probability,53,0.0021857772953808308,0.019664682858899375
+ipromoter_mm_notata,Mouse non-TATA,Probability residual,53,0.002930685877799988,0.026366367913045214
+ipromoter_mm_notata,Mouse non-TATA,Rank,53,0.027741704136133194,0.24958252378014
+ipromoter_mm_notata,Mouse non-TATA,Rank residual,53,0.012228547595441341,0.11001601617762848
+ipromoter_mm_tata,Mouse TATA,Absolute probability residual,53,0.002134038135409355,0.022683906083261672
+ipromoter_mm_tata,Mouse TATA,Cross-source summary,5,0.0,0.0
+ipromoter_mm_tata,Mouse TATA,Logit,53,0.02102654241025448,0.22350308805444047
+ipromoter_mm_tata,Mouse TATA,Logit residual,53,0.019432391971349716,0.20655795561341714
+ipromoter_mm_tata,Mouse TATA,Probability,53,0.020163079723715782,0.2143248516570448
+ipromoter_mm_tata,Mouse TATA,Probability residual,53,0.003073657164350152,0.032671651593934106
+ipromoter_mm_tata,Mouse TATA,Rank,53,0.019626714289188385,0.20862351814231195
+ipromoter_mm_tata,Mouse TATA,Rank residual,53,0.00862076599150896,0.09163502885558986
+snnrice6ma_rice_chen,Rice 6mA,Absolute probability residual,53,0.0020273730624467134,0.036799477927145025
+snnrice6ma_rice_chen,Rice 6mA,Cross-source summary,5,0.010167344473302364,0.1845506263516335
+snnrice6ma_rice_chen,Rice 6mA,Logit,53,0.010325529612600803,0.18742189392928893
+snnrice6ma_rice_chen,Rice 6mA,Logit residual,53,0.0010745322797447443,0.01950416903672895
+snnrice6ma_rice_chen,Rice 6mA,Probability,53,0.007996980100870132,0.14515566876016103
+snnrice6ma_rice_chen,Rice 6mA,Probability residual,53,0.0003321654803585261,0.006029238766673405
+snnrice6ma_rice_chen,Rice 6mA,Rank,53,0.01654280722141266,0.30027363018363623
+snnrice6ma_rice_chen,Rice 6mA,Rank residual,53,0.006625708658248186,0.12026529504473295

@@ -1,0 +1,31 @@
+source_id,evidence,prediction_head,source_family
+A01,1-3-mer composition,Logistic L2 (C=1),composition
+A02,1-3-mer composition,Logistic L2 (C=0.3),composition
+A03,4-6-mer composition,Logistic L2 (C=1),composition
+A04,4-6-mer composition,Logistic L2 (C=0.3),composition
+A05,Order-4 FCGR,Scaled logistic L2 (C=1),composition
+A06,Order-4 FCGR,ExtraTrees (300),composition
+A07,Basic motif and position descriptors,Scaled logistic L2 (C=1),motif_position
+A08,Basic motif and position descriptors,ExtraTrees (300),motif_position
+A09,CKSNAP (gap up to 5),Scaled logistic L2 (C=1),physicochemical
+A10,CKSNAP (gap up to 5),ExtraTrees (300),physicochemical
+A11,Z-curve descriptors,Scaled logistic L2 (C=1),physicochemical
+A12,Z-curve descriptors,ExtraTrees (300),physicochemical
+A13,EIIP autocorrelation,Scaled logistic L2 (C=1),physicochemical
+A14,EIIP autocorrelation,ExtraTrees (300),physicochemical
+A15,Dinucleotide autocorrelation,Scaled logistic L2 (C=1),physicochemical
+A16,Dinucleotide autocorrelation,ExtraTrees (300),physicochemical
+A17,Enhancer motif-position descriptors,Scaled logistic L2 (C=1),motif_position
+A18,Enhancer motif-position descriptors,ExtraTrees (300),motif_position
+A19,DNABERT-2 embedding,Scaled logistic L2 (C=1),foundation_db2
+A20,DNABERT-2 embedding,Scaled logistic L2 (C=0.3),foundation_db2
+A21,DNABERT-1 mean embedding,Linear head,foundation_db1
+A22,DNABERT-1 CLS embedding,Linear head,foundation_db1
+A23,Nucleotide Transformer mean embedding,Linear head,foundation_nt
+A24,Nucleotide Transformer CLS embedding,Linear head,foundation_nt
+A25,DNAshapeR four-track profile,Logistic (C=1),dna_shape
+A26,DNAshapeR four-track profile,Histogram gradient boosting,dna_shape
+A27,DNAshapeR EP track,Logistic (C=1),dna_shape
+A28,DNAshapeR five-track profile,Logistic (C=0.3),dna_shape
+A29,Feature-complementarity view-token channel,View-token expert,deep_feature_expert
+A30,Integrated score-residual evidence channel,Integrated residual predictor,score_residual_expert

@@ -2,7 +2,7 @@ import numpy as np
 
 from mucff.fusion import MuCFFConfig
 from mucff.ledger import EvidenceLedger
-from mucff.representation import fit_routing_state, mucff_state
+from mucff.representation import mucff_state, select_anchor
 from mucff.robustness import build_stress_conditions
 
 
@@ -16,10 +16,10 @@ def test_stress_conditions_include_source_groups_and_random_missingness():
         eval_scores=rng.uniform(0.1, 0.9, size=(10, 4)),
         source_ids=("a", "b", "c", "d"),
         source_families=(
-            "composition",
-            "foundation_db2",
-            "sequence_grammar_rc",
-            "derived_anchor",
+            "Composition and FCGR",
+            "DNABERT-2",
+            "RC motif grammar",
+            "Cross-fitted meta-evidence",
         ),
     )
     conditions = build_stress_conditions(ledger, MuCFFConfig(), repeats=2)
@@ -31,12 +31,11 @@ def test_stress_conditions_include_source_groups_and_random_missingness():
     assert names.count("score_noise_sd_0.05") == 2
 
 
-def test_routed_state_is_finite_under_family_grouping():
+def test_complete_state_is_finite():
     rng = np.random.default_rng(11)
     scores = rng.uniform(0.05, 0.95, size=(31, 6))
     labels = np.tile([0, 1], 16)[:31]
-    families = ("a", "a", "b", "b", "c", "c")
-    routing = fit_routing_state(scores, labels, families)
-    state = mucff_state(scores, routing)
-    assert state.shape == (31, 3 * 6 + 5 + 12)
+    anchor_index = select_anchor(scores, labels)
+    state = mucff_state(scores, anchor_index)
+    assert state.shape == (31, 3 * 6 + 5 + 4 * 6)
     assert np.isfinite(state).all()

@@ -2,4 +2,4 @@ dataset_family,task_ids,upstream_resource,citation_keys,upstream_license_status,
 GUE,"gue_emp_H3;gue_human_tf_0;gue_mouse_0;gue_prom_300_all;gue_prom_core_all",https://github.com/MAGICS-LAB/DNABERT_2,zhou2023dnabert2,See upstream repository,labels and derived source probabilities
 iPromoter,"ipromoter_hs_notata;ipromoter_hs_tata;ipromoter_mm_notata;ipromoter_mm_tata",https://github.com/mldlproject/2022-iPromoter-Seqvec,nguyen2022ipromoterseqvec,See upstream repository,labels and derived source probabilities
 Rice 6mA,snnrice6ma_rice_chen,https://github.com/huangqianfei0916/6ma-rice,"chen2019i6mapred;lv2019idna6marice;yu2019snnrice6ma",See upstream repository,labels and derived source probabilities
-iEnhancer,"ienhancer_recognition;ienhancer_strength",https://github.com/leirufeng/iEnhancer-DCSV,"liu2016ienhancer2l;ienhancerdcsv2023;capsenhancer2024",See upstream repository,labels and derived source probabilities
+iEnhancer,"enhancer_recognition;enhancer_strength",https://github.com/leirufeng/iEnhancer-DCSV,"liu2016ienhancer2l;ienhancerdcsv2023;capsenhancer2024",See upstream repository,labels and derived source probabilities

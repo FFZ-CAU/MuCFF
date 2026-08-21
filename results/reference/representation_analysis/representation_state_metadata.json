@@ -1,0 +1,101 @@
+{
+  "representative_task": "gue_mouse_0",
+  "visualization_sample_rule": "all balanced evaluation samples up to 1000",
+  "cross_task_silhouette_sample_rule": "balanced evaluation samples up to 600",
+  "visual_embedding": {
+    "method": "t-SNE",
+    "perplexity": 30,
+    "metric": "cosine",
+    "initialization": "random",
+    "iterations": 1200
+  },
+  "decision": {
+    "C": 0.03,
+    "penalty": "elasticnet",
+    "l1_ratio": 0.5,
+    "solver": "saga",
+    "class_weight": "balanced"
+  },
+  "task_states": {
+    "gue_emp_H3": {
+      "anchor_index": 42,
+      "n_sources": 53,
+      "n_oof": 13468,
+      "n_test": 1497,
+      "n_state_coordinates": 376,
+      "solver_iterations": 245
+    },
+    "gue_human_tf_0": {
+      "anchor_index": 42,
+      "n_sources": 53,
+      "n_oof": 33378,
+      "n_test": 1000,
+      "n_state_coordinates": 376,
+      "solver_iterations": 327
+    },
+    "gue_mouse_0": {
+      "anchor_index": 38,
+      "n_sources": 49,
+      "n_oof": 7288,
+      "n_test": 810,
+      "n_state_coordinates": 348,
+      "solver_iterations": 152
+    },
+    "gue_prom_300_all": {
+      "anchor_index": 42,
+      "n_sources": 53,
+      "n_oof": 53276,
+      "n_test": 5920,
+      "n_state_coordinates": 376,
+      "solver_iterations": 212
+    },
+    "gue_prom_core_all": {
+      "anchor_index": 42,
+      "n_sources": 53,
+      "n_oof": 53276,
+      "n_test": 5920,
+      "n_state_coordinates": 376,
+      "solver_iterations": 213
+    },
+    "ipromoter_hs_notata": {
+      "anchor_index": 42,
+      "n_sources": 53,
+      "n_oof": 44043,
+      "n_test": 7774,
+      "n_state_coordinates": 376,
+      "solver_iterations": 497
+    },
+    "ipromoter_hs_tata": {
+      "anchor_index": 52,
+      "n_sources": 53,
+      "n_oof": 4967,
+      "n_test": 878,
+      "n_state_coordinates": 376,
+      "solver_iterations": 164
+    },
+    "ipromoter_mm_notata": {
+      "anchor_index": 42,
+      "n_sources": 53,
+      "n_oof": 36423,
+      "n_test": 6429,
+      "n_state_coordinates": 376,
+      "solver_iterations": 505
+    },
+    "ipromoter_mm_tata": {
+      "anchor_index": 42,
+      "n_sources": 53,
+      "n_oof": 5170,
+      "n_test": 914,
+      "n_state_coordinates": 376,
+      "solver_iterations": 167
+    },
+    "snnrice6ma_rice_chen": {
+      "anchor_index": 42,
+      "n_sources": 53,
+      "n_oof": 1495,
+      "n_test": 265,
+      "n_state_coordinates": 376,
+      "solver_iterations": 128
+    }
+  }
+}

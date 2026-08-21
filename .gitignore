@@ -9,6 +9,5 @@ venv/
 build/
 dist/
 outputs/
-tmp/
 .DS_Store
 Thumbs.db

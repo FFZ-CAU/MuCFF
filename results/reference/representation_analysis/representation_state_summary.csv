@@ -1,0 +1,41 @@
+evaluation_task,task_label,stage,stage_label,silhouette_cosine,n_test,n_used
+gue_emp_H3,GUE EMP-H3,aligned,Aligned state,0.5577062964439392,1497,600
+gue_emp_H3,GUE EMP-H3,contribution,Linear contribution,0.5766550898551941,1497,600
+gue_emp_H3,GUE EMP-H3,residual,Anchor-relative residuals,0.360129714012146,1497,600
+gue_emp_H3,GUE EMP-H3,source,Source scores,0.5755602121353149,1497,600
+gue_human_tf_0,GUE human TF,aligned,Aligned state,0.4300389587879181,1000,600
+gue_human_tf_0,GUE human TF,contribution,Linear contribution,0.43756651878356934,1000,600
+gue_human_tf_0,GUE human TF,residual,Anchor-relative residuals,0.246392160654068,1000,600
+gue_human_tf_0,GUE human TF,source,Source scores,0.44058746099472046,1000,600
+gue_mouse_0,GUE mouse,aligned,Aligned state,0.24566048383712769,810,600
+gue_mouse_0,GUE mouse,contribution,Linear contribution,0.3533336818218231,810,600
+gue_mouse_0,GUE mouse,residual,Anchor-relative residuals,0.2055732011795044,810,600
+gue_mouse_0,GUE mouse,source,Source scores,0.2531909644603729,810,600
+gue_prom_300_all,GUE promoter-300,aligned,Aligned state,0.6365487575531006,5920,600
+gue_prom_300_all,GUE promoter-300,contribution,Linear contribution,0.6073900461196899,5920,600
+gue_prom_300_all,GUE promoter-300,residual,Anchor-relative residuals,0.3902873694896698,5920,600
+gue_prom_300_all,GUE promoter-300,source,Source scores,0.6637158393859863,5920,600
+gue_prom_core_all,GUE promoter-core,aligned,Aligned state,0.3852960765361786,5920,600
+gue_prom_core_all,GUE promoter-core,contribution,Linear contribution,0.4153952896595001,5920,600
+gue_prom_core_all,GUE promoter-core,residual,Anchor-relative residuals,0.2232242077589035,5920,600
+gue_prom_core_all,GUE promoter-core,source,Source scores,0.39805445075035095,5920,600
+ipromoter_hs_notata,Human non-TATA,aligned,Aligned state,0.28862476348876953,7774,600
+ipromoter_hs_notata,Human non-TATA,contribution,Linear contribution,0.3006800711154938,7774,600
+ipromoter_hs_notata,Human non-TATA,residual,Anchor-relative residuals,0.25034964084625244,7774,600
+ipromoter_hs_notata,Human non-TATA,source,Source scores,0.2925896644592285,7774,600
+ipromoter_hs_tata,Human TATA,aligned,Aligned state,0.4409690797328949,878,600
+ipromoter_hs_tata,Human TATA,contribution,Linear contribution,0.6118179559707642,878,600
+ipromoter_hs_tata,Human TATA,residual,Anchor-relative residuals,0.3266197741031647,878,600
+ipromoter_hs_tata,Human TATA,source,Source scores,0.4545436203479767,878,600
+ipromoter_mm_notata,Mouse non-TATA,aligned,Aligned state,0.38189077377319336,6429,600
+ipromoter_mm_notata,Mouse non-TATA,contribution,Linear contribution,0.4063919484615326,6429,600
+ipromoter_mm_notata,Mouse non-TATA,residual,Anchor-relative residuals,0.28224191069602966,6429,600
+ipromoter_mm_notata,Mouse non-TATA,source,Source scores,0.3928076922893524,6429,600
+ipromoter_mm_tata,Mouse TATA,aligned,Aligned state,0.47000905871391296,914,600
+ipromoter_mm_tata,Mouse TATA,contribution,Linear contribution,0.7205519676208496,914,600
+ipromoter_mm_tata,Mouse TATA,residual,Anchor-relative residuals,0.41832637786865234,914,600
+ipromoter_mm_tata,Mouse TATA,source,Source scores,0.48635682463645935,914,600
+snnrice6ma_rice_chen,Rice 6mA,aligned,Aligned state,0.20238588750362396,265,264
+snnrice6ma_rice_chen,Rice 6mA,contribution,Linear contribution,0.290286660194397,265,264
+snnrice6ma_rice_chen,Rice 6mA,residual,Anchor-relative residuals,0.21066145598888397,265,264
+snnrice6ma_rice_chen,Rice 6mA,source,Source scores,0.2084987461566925,265,264

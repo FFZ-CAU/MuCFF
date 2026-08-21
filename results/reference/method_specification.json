@@ -1,0 +1,10 @@
+{
+  "method": "MuCFF",
+  "representation": "aligned score state plus source-preserving anchor-relative residual state",
+  "decision": "class-balanced elastic-net logistic regression",
+  "regularization_c": 0.03,
+  "l1_ratio": 0.5,
+  "primary_tasks": 10,
+  "mean_auc": 0.9443442104994446,
+  "mean_auprc": 0.9458187714079906
+}

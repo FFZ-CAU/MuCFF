@@ -9,11 +9,9 @@ ROOT = Path(__file__).resolve().parents[1]
 
 
 def test_manifest_and_ledgers_are_consistent():
-    manifest = pd.read_csv(ROOT / "data" / "ledger_manifest.csv").set_index(
-        "run_task_id"
-    )
-    paths = discover_ledgers(ROOT / "data" / "ledgers")
-    assert len(paths) == len(manifest) == 21
+    manifest = pd.read_csv(ROOT / "data" / "ledger_manifest.csv").set_index("task_id")
+    paths = discover_ledgers(ROOT / "data" / "processed")
+    assert len(paths) == len(manifest) == 10
     for path in paths:
         ledger = load_ledger(path)
         row = manifest.loc[ledger.task_id]
@@ -22,25 +20,13 @@ def test_manifest_and_ledgers_are_consistent():
         assert ledger.n_sources == row.source_count
 
 
-def test_source_metadata_matches_every_ledger():
-    metadata = pd.read_csv(ROOT / "data" / "source_metadata.csv").set_index(
-        "source_name"
-    )
-    for path in discover_ledgers(ROOT / "data" / "ledgers"):
+def test_auxiliary_ledgers_use_stable_source_metadata():
+    metadata = pd.read_csv(ROOT / "data" / "auxiliary_source_metadata.csv")
+    expected_ids = metadata["source_id"].tolist()
+    expected_families = metadata["source_family"].tolist()
+    paths = discover_ledgers(ROOT / "data" / "auxiliary")
+    assert len(paths) == 2
+    for path in paths:
         ledger = load_ledger(path)
-        assert set(ledger.source_ids).issubset(metadata.index)
-        expected_families = tuple(
-            metadata.loc[source_id, "source_family"] for source_id in ledger.source_ids
-        )
-        assert ledger.source_families == expected_families
-
-
-def test_primary_and_auxiliary_roles_are_explicit():
-    manifest = pd.read_csv(ROOT / "data" / "ledger_manifest.csv")
-    primary = manifest.loc[manifest.study_role.eq("Primary")]
-    auxiliary = manifest.loc[manifest.study_role.eq("Auxiliary")]
-    assert primary.evaluation_task.nunique() == 10
-    assert auxiliary.run_task_id.tolist() == [
-        "ienhancer_recognition",
-        "ienhancer_strength",
-    ]
+        assert list(ledger.source_ids) == expected_ids
+        assert list(ledger.source_families) == expected_families

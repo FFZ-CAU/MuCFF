@@ -12,9 +12,9 @@ EPSILON = 1e-12
 
 def _paired_summary(differences: np.ndarray) -> dict[str, float | int]:
     values = np.asarray(differences, dtype=float)
-    generator = np.random.default_rng(20260817)
+    generator = np.random.default_rng(20260810)
     bootstrap = values[
-        generator.integers(0, len(values), size=(20_000, len(values)))
+        generator.integers(0, len(values), size=(200_000, len(values)))
     ].mean(axis=1)
     nonzero = values[np.abs(values) > EPSILON]
     p_value = (

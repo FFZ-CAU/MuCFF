@@ -237,7 +237,7 @@ def run_extended_baselines(ledger, config: MuCFFConfig, device: str = "cpu") -> 
         "aligned",
         config,
     )
-    aligned_control = crossfit_aligned_control(
+    sparse_aligned = crossfit_aligned_control(
         ledger.oof_scores,
         ledger.y_oof,
         ledger.eval_scores,
@@ -249,9 +249,9 @@ def run_extended_baselines(ledger, config: MuCFFConfig, device: str = "cpu") -> 
             aligned_l2.oof_probability,
             aligned_l2.eval_probability,
         ),
-        "aligned_logistic_l2": (
-            aligned_control.oof_probability,
-            aligned_control.eval_probability,
+        "sparse_aligned_control": (
+            sparse_aligned.oof_probability,
+            sparse_aligned.eval_probability,
         ),
     }
     for method, (estimator, state_name) in learned_estimators(
@@ -277,7 +277,6 @@ def run_extended_baselines(ledger, config: MuCFFConfig, device: str = "cpu") -> 
         ledger.y_oof,
         ledger.eval_scores,
         ledger.task_id,
-        ledger.source_families,
         config,
     )
     predictions["mucff"] = (mucff.oof_probability, mucff.eval_probability)
@@ -302,10 +301,9 @@ def run_attention_benchmark(
         ledger.y_oof,
         ledger.eval_scores,
         ledger.task_id,
-        ledger.source_families,
         config,
     )
-    predictions["aligned_logistic_l2"] = (
+    predictions["sparse_aligned_control"] = (
         aligned.oof_probability,
         aligned.eval_probability,
     )

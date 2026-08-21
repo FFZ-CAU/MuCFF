@@ -2,50 +2,51 @@
 
 ## Environment
 
-The reference analysis uses Python 3.11 on Linux with the versions in `requirements-lock.txt`. MuCFF is CPU compatible. `xgb_threads` is set to 2 in the released configuration; numerical-library thread limits can be set with `OMP_NUM_THREADS`, `MKL_NUM_THREADS`, and `OPENBLAS_NUM_THREADS`.
+The reference analysis uses Python 3.11 and the versions in `requirements-lock.txt`. The complete ten-task fusion run is CPU compatible. Setting `OMP_NUM_THREADS`, `MKL_NUM_THREADS`, and `OPENBLAS_NUM_THREADS` to 2 limits numerical-library parallelism.
 
-## Primary analysis
-
-```bash
-mucff run --data data/ledgers --config configs/main_experiment.json --output outputs/main_experiment
-mucff verify --output outputs/main_experiment --reference results/reference/reference_predictions.npz
-```
-
-The default command evaluates 19 run ledgers and aggregates them into ten equally weighted tasks: five GUE tasks, four iPromoter tasks, and one Rice 6mA task pooled across ten outer test folds. Expected primary means are AUC 0.929801, AUPRC 0.935494, MCC 0.666422, and accuracy 0.825518. The aligned logistic control has mean AUC 0.924627.
-
-Run or verify one task family with `--tasks`. For Rice 6mA, the family identifier expands to all ten fold ledgers:
+## Quick verification
 
 ```bash
-mucff run --data data/ledgers --config configs/main_experiment.json --output outputs/rice_6ma --tasks snnrice6ma_rice_chen
+mucff run --data data/processed --config configs/main_experiment.json --output outputs/rice_6ma --tasks snnrice6ma_rice_chen
 mucff verify --output outputs/rice_6ma --reference results/reference/reference_predictions.npz --tasks snnrice6ma_rice_chen
 ```
 
-## Auxiliary enhancer tasks
+## Complete analysis
 
 ```bash
-mucff run --data data/ledgers --config configs/main_experiment.json --output outputs/ienhancer --tasks ienhancer_recognition ienhancer_strength
+mucff run --data data/processed --config configs/main_experiment.json --output outputs/main_experiment
+mucff verify --output outputs/main_experiment --reference results/reference/reference_predictions.npz
+python scripts/export_reference_results.py --run outputs/main_experiment --output outputs/reproduced_reference
 ```
 
-These tasks use the original uncorrected benchmark partitions and do not enter the ten-task aggregate.
+The complete command processes ten tasks and writes task-level metrics, OOF and evaluation predictions, across-task summaries, and paired AUC comparisons. A reference CPU run with two numerical-library threads required approximately 13 minutes and less than 1 GB of working memory; installation and the 52 MB processed ledger collection require additional disk space.
 
-## Comparators and robustness
+The expected MuCFF means are AUC 0.944344, AUPRC 0.945819, MCC 0.751495, and accuracy 0.874161. The matched sparse aligned-state control has mean AUC 0.943705. Prediction verification uses an absolute tolerance of `2e-7`.
+
+The auxiliary enhancer-recognition and enhancer-strength tasks use a separate
+30-source ledger and do not enter the primary ten-task aggregate:
+
+```bash
+mucff run --data data/auxiliary --config configs/main_experiment.json --output outputs/auxiliary_enhancer
+```
+
+## Extended analyses
 
 ```bash
 python -m pip install -r requirements-extended-lock.txt
-python -m pip install -e ".[benchmark,figures]"
-mucff benchmark --data data/ledgers --config configs/main_experiment.json --output outputs/extended_baselines --device cpu
-mucff robustness --data data/ledgers --config configs/main_experiment.json --output outputs/robustness
-python scripts/run_evidence_growth.py --data data/ledgers --output outputs/evidence_growth
+python -m pip install -e ".[benchmark,figures,sources]"
+mucff benchmark --data data/processed --config configs/main_experiment.json --output outputs/extended_baselines --device cpu
 mucff plot --reference results/reference --output outputs/figures
+mucff robustness --data data/processed --config configs/main_experiment.json --output outputs/robustness
+python scripts/run_evidence_growth.py --data data/processed --config configs/main_experiment.json --output outputs/evidence_growth
+python scripts/run_mechanism_ablation.py --data data/processed --config configs/main_experiment.json --output outputs/mechanism_ablation
 ```
 
-Install the attention environment and run the matched QKV controls separately:
+The robustness analysis uses the same four fusion folds and fixed MuCFF configuration. Source-group ablations refit the fusion model after removing a complete source group. Deployment-shift analyses retain clean training and replace unavailable evaluation scores by fold-training medians, reverse the task-level OOF-selected strongest source for a conflict test, or add deterministic Gaussian score noise. Missing-source rank coordinates use the empirical midpoint.
 
-```bash
-python -m pip install -r requirements-attention-lock.txt
-mucff benchmark --suite attention --data data/ledgers --config configs/main_experiment.json --output outputs/qkv --device cpu
-```
+The benchmark command adds XGBoost, LightGBM, histogram gradient boosting, multilayer perceptron, kernel approximation, Super Learner, and matched logistic controls. The plotting command writes PDF, SVG, and PNG figures from the released result tables.
 
-Same-ledger fusion controls use identical OOF and evaluation score matrices. Task-model literature comparisons are indexed separately in `results/literature_context/comparison_protocol_registry.csv`, together with their data partition and selection protocol.
-
-Reference prediction arrays were generated with the locked Linux environment. Verification requires identical labels, a maximum probability difference no larger than `0.03`, a mean probability difference no larger than `0.003`, and an AUC difference no larger than `5e-4` for every method and partition.
+The evidence-growth script follows the fixed source-construction order. The
+mechanism-ablation script crosses aligned or source-preserving residual input
+with L2 or mixed sparse logistic decision under identical folds and source
+scores.

@@ -1,0 +1,8 @@
+﻿"method","auc","evidence_type","comparability"
+"iEnhancer-2L","0.8062","Published literature","Value reported in cited article"
+"iEnhancer-EL","0.8173","Published literature","Value reported in cited article"
+"iEnhancer-ECNN","0.8320","Published literature","Value reported in cited article"
+"iEnhancer-RF","0.8600","Published literature","Value reported in cited article"
+"NEPERS","0.9480","Published literature","Value reported in cited article"
+"CAPSEnhancer","0.9800","Published literature","Value reported in cited article"
+"MuCFF","0.834675","Current study","Evaluation in this study"

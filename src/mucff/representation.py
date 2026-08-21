@@ -10,7 +10,7 @@ from sklearn.metrics import roc_auc_score
 
 
 @dataclass(frozen=True)
-class RoutingState:
+class CompactResidualRouting:
     anchor_index: int
     prior: np.ndarray
     family_indices: tuple[np.ndarray, ...]
@@ -60,12 +60,12 @@ def select_anchor(scores: np.ndarray, labels: np.ndarray, epsilon: float = 1e-5)
     return int(np.argmax(symmetric_auc))
 
 
-def fit_routing_state(
+def fit_compact_residual_routing(
     scores: np.ndarray,
     labels: np.ndarray,
     source_families: tuple[str, ...] | list[str],
     epsilon: float = 1e-5,
-) -> RoutingState:
+) -> CompactResidualRouting:
     probabilities = clip_prob(scores, epsilon)
     ranks = rank_columns(probabilities)
     aucs = np.asarray(
@@ -101,7 +101,7 @@ def fit_routing_state(
         )
         for name in family_order
     )
-    return RoutingState(anchor_index, prior.astype(np.float64), family_indices)
+    return CompactResidualRouting(anchor_index, prior.astype(np.float64), family_indices)
 
 
 def residual_state(scores: np.ndarray, anchor_index: int, epsilon: float = 1e-5) -> np.ndarray:
@@ -121,7 +121,7 @@ def residual_state(scores: np.ndarray, anchor_index: int, epsilon: float = 1e-5)
 
 def compact_residual_state(
     scores: np.ndarray,
-    routing: RoutingState,
+    routing: CompactResidualRouting,
     temperature: float = 0.20,
     epsilon: float = 1e-5,
 ) -> np.ndarray:
@@ -179,13 +179,12 @@ def compact_residual_state(
 
 def mucff_state(
     scores: np.ndarray,
-    routing: RoutingState,
-    temperature: float = 0.20,
+    anchor_index: int,
     epsilon: float = 1e-5,
 ) -> np.ndarray:
     return np.hstack(
         [
             aligned_state(scores, epsilon),
-            compact_residual_state(scores, routing, temperature, epsilon),
+            residual_state(scores, anchor_index, epsilon),
         ]
     ).astype(np.float32)

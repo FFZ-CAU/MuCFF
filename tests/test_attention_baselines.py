@@ -1,5 +1,4 @@
 import numpy as np
-import pytest
 
 from mucff.attention_baselines import (
     crossfit_qkv_attention,
@@ -19,7 +18,6 @@ def test_score_token_transform_uses_fitted_reference():
 
 
 def test_qkv_attention_crossfit_is_deterministic():
-    pytest.importorskip("torch")
     rng = np.random.default_rng(17)
     labels = np.tile(np.asarray([0, 1]), 40)
     signal = labels[:, None] * 0.35 + rng.normal(0.0, 0.16, size=(80, 5))
