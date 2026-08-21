@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "mucff"
-version = "1.0.2"
+version = "1.0.3"
 description = "Multisource Complementary Feature Fusion for functional DNA sequence classification"
 readme = "README.md"
 license = {file = "LICENSE"}
